@@ -1,0 +1,75 @@
+﻿@model Model.Class
+
+<html>
+
+<head>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/MicrosoftAjax.js"></script>
+    <script src="~/Scripts/MicrosoftMvcAjax.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <h2>FInd Class!</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.University.UniversityTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.University.UniversityTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MemberCount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MemberCount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Semester)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Semester)
+            </dd>
+
+           
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AdminInfo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AdminInfo)
+            </dd>
+
+           
+
+        </dl>
+    </div>
+   
+</body>
+
+
+</html>

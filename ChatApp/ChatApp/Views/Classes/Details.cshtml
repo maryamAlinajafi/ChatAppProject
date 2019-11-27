@@ -1,0 +1,74 @@
+﻿@model Model.Class
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Class</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.University.UniversityTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.University.UniversityTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Semester)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Semester)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfileImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfileImage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
