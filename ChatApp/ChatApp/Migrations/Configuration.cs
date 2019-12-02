@@ -10,6 +10,7 @@ namespace ChatApp.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "Model.ChatAppContext";
         }
 

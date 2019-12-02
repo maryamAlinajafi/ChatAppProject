@@ -17,6 +17,7 @@ namespace ChatApp.Controllers
     {
         private ChatAppContext db = new ChatAppContext();
 
+
         // GET: Classes
         public ActionResult Index()
         {
@@ -145,23 +146,40 @@ namespace ChatApp.Controllers
 
 
         public ActionResult MyClasses()
-        {
-            // var id = User.Identity.Name;
-            // Do stuf...
-
-
+        {   //Goal:show ether "CreationClassPage " or "JoinClassPage " To the User,Depend on What is his Role ?!
             var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
-            ViewBag.UserID = ticketData["UserID"];
-
+                  //  ViewBag.UserID = ticketData["UserID"];          
             //Note: ROleID for Students:2   &   ROleID for Proffesors:1
             ViewBag.UserRoleId =int.Parse(ticketData["UserRoleId"]);
 
 
-            List<Class> Myclass = new List<Class>();
+            string userid = ticketData["UserID"];
+            User u = FindUserById(Guid.Parse(userid));
+            var UserClassList = u.Classes;
+            
 
-             //here we must show user the list of classes hw joined and for professor we must show him buttomn for create new class
-
+            return View(UserClassList);
+        }
+        public ActionResult OpenClass(int id)
+        {
             return View();
+
+        }
+
+        public JsonResult LeftClass()
+        {
+            int id = Int32.Parse(Request["id"]);
+           
+            var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+            string userid = ticketData["UserID"];
+            User u = FindUserById(Guid.Parse(userid));
+            Class c = FindClassById(id);
+            u.Classes.Remove(c);
+            db.SaveChanges();
+          
+            return Json(true, JsonRequestBehavior.AllowGet);
+         //   Redirect(Request.UrlReferrer.ToString());
+
         }
 
         public ActionResult FindUniversity()
@@ -183,12 +201,25 @@ namespace ChatApp.Controllers
 
             if (ModelState.IsValid)
             {
+                var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+                string userid = ticketData["UserID"];
+                User u = FindUserById(Guid.Parse(userid));
+
                 try
                 {
+                    @class.AdminInfo = u.Username;
+                    @class.MemberCount = 0;
                     db.Classes.Add(@class);
+                    
+                    //add the creator(=professor) as one member :
+                    @class.Users.Add(u);
+                    @class.MemberCount++;
+                    //complete AdminInfo Column whit creator(=professor) Username :
+
                     db.SaveChanges();
 
-                    return View("ClassSuccessful");
+                   
+                    return View("ClassSuccesfullyCreated");
                 }
                 catch (Exception)
                 {
@@ -206,7 +237,7 @@ namespace ChatApp.Controllers
 
 
 
-        public Class FindClassById(Guid? id)
+        public Class FindClassById(int? id)
         {
             if (id == null)           
                   return null;
@@ -221,24 +252,76 @@ namespace ChatApp.Controllers
 
         }
 
-        public PartialViewResult FindClassByAccessCode(string accessCode)
+        public User FindUserById(Guid id)
         {
-            if (accessCode == null)
+            if (id == null)
                 return null;
 
-            Class @class = db.Classes.Where(x => x.AccessCode == accessCode).FirstOrDefault();
+            User u= db.Users.Find(id);
 
-            if (@class == null)
+            if (u== null)
                 return null;
 
 
-            
-            return PartialView(@class);
+            return u;
 
         }
 
 
+        [HttpPost]
+        public PartialViewResult FindClassByAccessCode(string accessCode)
+        {
 
+            Class c = new Class();
+
+
+            if (accessCode == null)           
+                return PartialView(c);
+            
+
+            Class @class = db.Classes.Where(x => x.AccessCode == accessCode).FirstOrDefault();
+
+            if (@class == null)
+                return PartialView(c);
+
+            return PartialView(@class);
+
+        }
+
+        public ActionResult JoinClass(int id)
+        {
+
+            try
+            {
+               var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+               string userid = ticketData["UserID"];
+               User u = FindUserById(Guid.Parse(userid));
+               Class c = FindClassById(id);
+               db.Users.Attach(u);
+               u.Classes.Add(c);               
+               db.SaveChanges();
+                c.MemberCount++;
+                db.SaveChanges();
+
+                //Creating some viewbag to show User some Info about new class that he has joind:
+                ViewBag.classname = "" +c.Title;
+                ViewBag.nth = "" + (c.Users.Count-1) ;
+                ViewBag.StudentName = u.Firstname + " " + u.Lastname;
+                return View("UserSuccesfullyJoined");
+            }
+            catch (Exception)
+            {
+                return Content("Error from controller!");
+            }
+
+
+
+
+
+
+
+            
+        }
 
 
 

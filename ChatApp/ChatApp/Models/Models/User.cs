@@ -8,7 +8,9 @@ namespace Model
 
         public User()
         {
-           
+            Classes = new HashSet<Class>();
+            Messages = new HashSet<Message>();
+
         }
         [Key]
         public System.Guid ID { get; set; }

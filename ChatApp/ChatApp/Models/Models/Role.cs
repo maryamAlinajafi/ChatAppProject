@@ -7,6 +7,11 @@ namespace Model
 {
     public class Role
     {
+        public Role()
+        {
+            Users = new HashSet<User>();
+
+        }
         [Key]
         public int ID { get; set; }
         [Required]

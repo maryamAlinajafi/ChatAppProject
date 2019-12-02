@@ -1,23 +1,117 @@
-﻿
+﻿@model IEnumerable<Model.Class>
 @{
     ViewBag.Title = "My Classes:";
     int roleid=@ViewBag.UserRoleId;
 
+
 }
-<hr />
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".btnLeavingClass").click(function () {
+
+            swal({
+                    title: "Are you sure?",
+                    text: "Once Leaving, you will not be able to enter aagin unless enroll via accesscode!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                     })
+
+                .then((willDelete) => {
+                    if (willDelete)
+                    {
+
+                        var id = $("#modelID").val();
+                        $.ajax({
+                                type: "GET",
+                                url: '/Classes/LeftClass?id=' + id,
+                                contentType: 'application/json; charset=utf-8',
+                                success: function () {
+
+                                    swal("You Left This Class", "Hope that class was benefit for you...", { buttons: false });
+                                    window.location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    swal("some Error ocurs !","Please try later....","info");
+                                }
+                            });
+
+                    }
+                })
+
+
+            })
+        })
+    </script>
+
+
+
+</head>
+<body>
+
+    <hr />
 
     <div class="jumbotron" style="align-content:center">
 
-        <h2 class="maryam">My Classes: </h2>
+        <table class="table">
+            <tr>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.ProfileImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.University.UniversityTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdminInfo)
+                </th>
 
-        <h4>sاینجا باید لیست کلاس ها نمایش یابد</h4>
-        <h4>sاینجا باید لیست کلاس ها نمایش یابد</h4>
-        <h4>sاینجا باید لیست کلاس ها نمایش یابد</h4>
-        <h4>sاینجا باید لیست کلاس ها نمایش یابد</h4>
-        
+                <th></th>
+            </tr>
 
+            @foreach (var item in Model)
+            {
+                <tr>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfileImage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.University.UniversityTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminInfo)
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Open Class", "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
+                        @Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })
+                        <input type="button" class="btn btn-danger btnLeavingClass" value="Ajax Text" />
+
+                    </td>
+                    <td>
+                       <input type="hidden" id="modelID" value="@item.ID" />
+                    </td>
+                </tr>
+                
+            }
+
+        </table>
+      
     </div>
+
     <div style="align-content:center">
         @*if User is a professor,"Creation Botomn " will be apear..... *@
         @if (roleid == 1)
@@ -28,12 +122,16 @@
         else
         {
 
-         @Html.Partial("~/Views/CommonPartialView/FindAndJoinNewClass.cshtml");
+            @Html.Partial("~/Views/CommonPartialView/FindAndJoinNewClass.cshtml");
 
         }
 
     </div>
 
+   
+</body>
+
+</html>
 
 
 

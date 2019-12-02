@@ -7,6 +7,11 @@ namespace Model
 {
   public class University
     {
+        public University()
+        {
+            Classes = new HashSet<Class>();
+
+        }
         [Key]
         public int ID { get; set; }
         [Required]

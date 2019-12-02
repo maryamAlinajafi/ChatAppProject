@@ -132,6 +132,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountManagerController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\Messages1Controller.cs" />
+    <Compile Include="Controllers\SweetController.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -164,12 +166,23 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\LoadingPic\ajax-loader %281%29.gif" />
+    <Content Include="Content\myCss.css" />
+    <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
+    <Content Include="Content\sweetalert\docs.css" />
+    <Content Include="Content\sweetalert\sweet-alert.css" />
+    <Content Include="Content\sweetalert\thumbs-up.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\sweetalert\sweet-alert.less" />
+    <Content Include="Content\sweetalert\sweet-alert-combine.less" />
+    <Content Include="Content\sweetalert\sweet-alert-animations.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -239,9 +252,16 @@
     <Content Include="Views\CommonPartialView\ShowCreationButomn.cshtml" />
     <Content Include="Views\Classes\FindUniversity.cshtml" />
     <Content Include="Views\Classes\CreateClass.cshtml" />
-    <Content Include="Views\Classes\ClassSuccessful.cshtml" />
+    <Content Include="Views\Classes\ClassSuccesfullyCreated.cshtml" />
     <Content Include="Views\CommonPartialView\FindAndJoinNewClass.cshtml" />
     <Content Include="Views\Classes\FindClassByAccessCode.cshtml" />
+    <Content Include="Views\Messages1\Create.cshtml" />
+    <Content Include="Views\Messages1\Delete.cshtml" />
+    <Content Include="Views\Messages1\Details.cshtml" />
+    <Content Include="Views\Messages1\Edit.cshtml" />
+    <Content Include="Views\Messages1\Index.cshtml" />
+    <Content Include="Views\Classes\UserSuccesfullyJoined.cshtml" />
+    <Content Include="Views\Sweet\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,41 +1,55 @@
 ﻿@model Model.Class
-
-<html>
-
-<head>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/MicrosoftAjax.js"></script>
-    <script src="~/Scripts/MicrosoftMvcAjax.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
-</head>
+    @if (Model.Title == null)
+{
 
 
-<body>
 
-    <h2>FInd Class!</h2>
+    <script type="text/javascript">
+        alert("کد وارد شده صحیح نمیباشد! ");
+    </script>
+}
+else
+{
+    <html>
 
-    <div>
-        <hr />
+    <head>
+
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+
+        <script type="text/javascript">
+            function searchFaild() {
+                $("#searchResult").html("Sorry!!!! sorry!!! sorry!!!!!");
+            }
+        </script>
+        <style>
+            #loader {
+                display: none;
+            }
+        </style>
+
+
+    </head>
+
+
+    <body>
+
         <dl class="dl-horizontal">
+
+            <dt id="aaa">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.University.UniversityTitle)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.University.UniversityTitle)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Title)
             </dd>
 
             <dt>
@@ -54,7 +68,7 @@
                 @Html.DisplayFor(model => model.Semester)
             </dd>
 
-           
+
 
             <dt>
                 @Html.DisplayNameFor(model => model.AdminInfo)
@@ -64,12 +78,51 @@
                 @Html.DisplayFor(model => model.AdminInfo)
             </dd>
 
-           
+            @*<dt>
+                    @Ajax.ActionLink("Join", "JoinClass", "Classes",new {ID=Model.ID },
+                   new AjaxOptions
+                   {
+                       HttpMethod = "POST",
+                       InsertionMode = InsertionMode.Replace,
+                       UpdateTargetId = "res"
+
+                   }
+                , new { @class = "btn btn-defualt btn-success" }
+
+                )
+                </dt>*@
 
         </dl>
-    </div>
-   
-</body>
+
+
+        <div>
+
+            @Html.ActionLink(" Join! ", "JoinClass", new { id = Model.ID }, new { @class = "btn btn-default btn-default btn-success btn-lg" }) |||
+
+
+            @*@using (Ajax.BeginForm("JoinClass","Classes",new {classId=Model.ID },new AjaxOptions
+                {
+                    OnFailure = "searchFaild",
+
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    LoadingElementId = "ajaxloader"
+
+                }))
+                {
+                <div>
+                    <input type="submit" value=" Join !" class="btn btn-primary btn-default" />
+                    <img id="loader" src="~/Content/LoadingPic/ajax-loader (1).gif" />
+                </div>
+                    }*@
+        </div>
+
+        <br />
+        <hr />
+
+    </body>
 
 
 </html>
+
+}

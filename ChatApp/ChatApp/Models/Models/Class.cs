@@ -8,6 +8,15 @@ namespace Model
 {
   public  class Class
     {
+        public Class()
+        {
+            Users = new HashSet<User>();
+            Messages = new HashSet<Message>();
+            Resourses = new HashSet<Resource>();
+            Projects = new HashSet<Project>();
+
+
+        }
         [Required]
         [Key]
         public int ID { get; set; }
@@ -16,13 +25,15 @@ namespace Model
         public string Title { get; set; }
 
         public int MemberCount { get; set; }
-        public string  Semester { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Select a Items ")]
+        public ChatApp.Models.Enums.SemmesterEnum Semester { get; set; }
 
         [Required(ErrorMessage ="پر کردن این فیلد اجباریست")]
         [MinLength(8), MaxLength(15)]
         [Index(IsUnique =true)]
         public string  AccessCode { get; set; }
-        public int AdminInfo { get; set; }
+        public string AdminInfo { get; set; }
         public string ProfileImage { get; set; }
 
 
