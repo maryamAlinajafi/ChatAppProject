@@ -106,25 +106,28 @@ namespace ChatApp.Controllers
             if (ModelState.IsValid)
             {
                 
-                try
-                {
+               
                     //recive uploaded file as the profile image:
-                    //put all Code in try/catch block in order to prevent EXEPTION when user didnt insert any profileImage at all from first !
+                    if (model.ImageFile!=null)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                            string extention = Path.GetExtension(model.ImageFile.FileName);
+                            filename = filename + DateTime.Now.ToString("yymmssfff") + extention;
+                            model.ImagePath = "~/UserProfileImage/" + filename;
+                            filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), filename);
+                            model.ImageFile.SaveAs(filename);
 
-                    string filename = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
-                    string extention = Path.GetExtension(model.ImageFile.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssfff") + extention;
-                    model.ImagePath = "~/UserProfileImage/" + filename;
-                    filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), filename);
-                    model.ImageFile.SaveAs(filename);
-
-                    model.UserViewModel.ProfileImage = model.ImagePath;
-                }
-                catch (Exception)
-                {
-
-                    return View(model);
-                }
+                            model.UserViewModel.ProfileImage = model.ImagePath;
+                        }
+                        catch (Exception)
+                        {
+                            ModelState.AddModelError(string.Empty, "آپلود عکس با مشکل مواجه شده است.لطفا مجددا تلاش کنید");
+                            return View(model);
+                        }
+                        
+                    }
                 model.UserViewModel.ID = Guid.NewGuid();
                 //Encrypting password:
                 string EncryptedPassword = Encryption.encrypt(model.UserViewModel.Password);
@@ -134,10 +137,18 @@ namespace ChatApp.Controllers
                 model.UserViewModel.Confirmation = EncryptedCOnfirmPassword;
 
 
+                try
+                {
+                    db.Users.Add(model.UserViewModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Login");
+                }
+                catch (Exception)
+                {
 
-                db.Users.Add(model.UserViewModel);
-                db.SaveChanges();
-                return RedirectToAction("Login");
+                    ModelState.AddModelError(string.Empty, "ثبت نام شما در سامانه با خطا مواجه شده.لطفا مجددا اقدام کنید");
+                }
+                
 
             }
 

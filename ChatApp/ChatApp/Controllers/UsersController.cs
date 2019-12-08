@@ -125,6 +125,7 @@ namespace ChatApp.Controllers
                 //Check wether User has Change his ProfileImage OR not??  :
                 if (model.ImageFile !=null )
                 {
+                    //deleting current profileimage from folder:
                     string filePath = Server.MapPath(model.UserViewModel.ProfileImage);
                     if (System.IO.File.Exists(filePath))
                           System.IO.File.Delete(filePath);

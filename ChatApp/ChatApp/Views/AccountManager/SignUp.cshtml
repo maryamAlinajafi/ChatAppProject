@@ -1,14 +1,14 @@
 ﻿@model Model.AddEditUserViewmodel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "SignUp";
 }
 
-<h2>Create</h2>
 <div class="container">
 
     @using (Html.BeginForm("SignUp", "AccountManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.AntiForgeryToken()
 
 
@@ -84,9 +84,13 @@
 
 
             <div class="form-group">
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "1") @Html.Label("Im Professor")
+                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "2") @Html.Label("Im Student ")
+                    @Html.ValidationMessageFor(model => model.UserViewModel.RoleId, "", new { @class = "text-danger" })
 
-                @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "1") @Html.Label("Im Professor")
-                @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "2") @Html.Label("Im Student ")
+                </div>
+               
 
             </div>
 
@@ -113,6 +117,11 @@
             <form runat="server">
                 <input type="file" name="ImageFile" id="imgInp" />
             </form>
+            <div style="background-color:aqua">
+                error message:
+                @Html.ValidationMessageFor(model => model.UserViewModel.ProfileImage, "", new { @class = "text-danger" })
+
+            </div>
 
 
         </div>
@@ -142,16 +151,18 @@
         readURL(this);
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#btnRemoveProfile').click(function () {
-           $("#imgInp").val('');
-            $('#previewImage').attr('src',"~/UserProfileImage/Profile.png");
-        
-    })
+            $("#imgInp").val('');
+            $('#previewImage').attr('src', "~/UserProfileImage/Profile.png");
+
+        })
     })
 
-   
+
 </script>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

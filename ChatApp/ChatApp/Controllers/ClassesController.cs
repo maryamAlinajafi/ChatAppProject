@@ -247,7 +247,8 @@ namespace ChatApp.Controllers
                     //2601 is error number of unique index violation
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        //Unique index was violated. Show corresponding error message to user.
+                        //Unique index was violated. Show corresponding error message to user:
+                        ModelState.AddModelError("AccessCode", "کدورود انتخاب شده تکراری میباشد...");
                     }
                 }
 

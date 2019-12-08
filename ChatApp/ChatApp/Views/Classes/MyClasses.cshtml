@@ -7,46 +7,7 @@
 }
 <html>
 <head>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(".btnLeavingClass").click(function () {
-
-            swal({
-                    title: "Are you sure?",
-                    text: "Once Leaving, you will not be able to enter aagin unless enroll via accesscode!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                     })
-
-                .then((willDelete) => {
-                    if (willDelete)
-                    {
-
-                        var id = $("#modelID").val();
-                        $.ajax({
-                                type: "GET",
-                                url: '/Classes/LeftClass?id=' + id,
-                                contentType: 'application/json; charset=utf-8',
-                                success: function () {
-
-                                    swal("You Left This Class", "Hope that class was benefit for you...", { buttons: false });
-                                    window.location.reload();
-                                },
-                                error: function (xhr, status, error) {
-                                    swal("some Error ocurs !","Please try later....","info");
-                                }
-                            });
-
-                    }
-                })
-
-
-            })
-        })
-    </script>
+   
 
 
 
@@ -59,7 +20,7 @@
 
         <table class="table">
             <tr>
-                
+
                 <th>
                     @Html.DisplayNameFor(model => model.ProfileImage)
                 </th>
@@ -78,38 +39,40 @@
 
             @foreach (var item in Model)
             {
-                <tr>
+        <tr>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProfileImage)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfileImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.University.UniversityTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdminInfo)
-                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.University.UniversityTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminInfo)
+            </td>
 
-                    <td>
+            <td>
+                <input type="hidden" class="classModel" value="@item.ID" />
+            </td>
 
-                        @Html.ActionLink("Open Class", "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
-                        @*@Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })*@
-                        <input type="button" class="btnLeavingClass btn btn-danger btn-sm " value="Leave Class" />
+            <td>
 
-                    </td>
-                    <td>
-                       <input type="hidden" id="modelID" value="@item.ID" />
-                    </td>
-                </tr>
-                
+                @Html.ActionLink("Open Class", "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
+                @*@Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })*@
+                <input type="button" class="btnLeavingClass btn btn-danger btn-sm " value="Leave Class" />
+
+            </td>
+
+        </tr>
+
             }
 
         </table>
-      
+
     </div>
 
     <div style="align-content:center">
@@ -128,7 +91,46 @@
 
     </div>
 
-   
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".btnLeavingClass").click(function () {
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Once Leaving, you will not be able to enter aagin unless enroll via accesscode!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            @*var id = $(".classModel").val();*@
+                            var id = $(this).closest('tr').find('input[type=hidden]').val();
+                            $.ajax({
+                                type: "GET",
+                                url: '/Classes/LeftClass?id=' + id,
+                                contentType: 'application/json; charset=utf-8',
+                                success: function () {
+
+                                    swal("You Left This Class", "Hope that class was benefit for you...", { buttons: false });
+                                    window.location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    swal("some Error ocurs !", "Please try later....", "info");
+                                }
+                            });
+
+                        }
+                    })
+
+
+            })
+        })
+    </script>
 </body>
 
 </html>
