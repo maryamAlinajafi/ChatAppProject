@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FormsAuthenticationExtensions;
+using Model;
+using System;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using ChatApp.Models;
-using Model;
-using FormsAuthenticationExtensions;
-using System.Collections.Specialized;
 
 namespace ChatApp.Controllers
 {
@@ -35,18 +33,18 @@ namespace ChatApp.Controllers
             }
 
         }
-        
+
         [HttpPost]
-        public ActionResult Login(User user,string returnUrl)
+        public ActionResult Login(User user, string returnUrl)
         {
             //When user type some Url befor Login,and then directed to Loign Page,"returnUrl" will have some value...
             //but when The User himself press Login Butttomn,this that  will be null,so we redirect user to see his classes!!! 
-          
+
             user.Password = Encryption.encrypt(user.Password);
-            using ( ChatAppContext db = new ChatAppContext())
+            using (ChatAppContext db = new ChatAppContext())
             {
                 User u = db.Users.Where(x => x.Username == user.Username && x.Password == user.Password).FirstOrDefault();
-                if (u!=null)
+                if (u != null)
                 {
                     // FormsAuthentication.SetAuthCookie(user.Username,false);
 
@@ -59,8 +57,9 @@ namespace ChatApp.Controllers
                              { "UserRoleId", u.RoleId.ToString() }
                        };
                     new FormsAuthentication().SetAuthCookie(u.Username, true, ticketData);
-
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length>1 && returnUrl .StartsWith("/") && !returnUrl.StartsWith("//")
+                    //Status field show that the whether the user is online or offline !
+                    u.Status = true;
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//")
                         && !returnUrl.StartsWith("/\\"))
                     {
                         return Redirect(returnUrl);
@@ -81,7 +80,7 @@ namespace ChatApp.Controllers
                 }
             }
 
-           
+
 
         }
 
@@ -101,30 +100,49 @@ namespace ChatApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp([Bind(Include = "ID,Firstname,Lastname,Username,Password,ProfileImage,Status,EmailAddress,PhoneNumber,RoleId,Confirmation")] User user)
+        public ActionResult SignUp(AddEditUserViewmodel model)
         {
-
-
 
             if (ModelState.IsValid)
             {
-                user.ID = Guid.NewGuid();
-                //Encrypting password:
-                string EncryptedPassword = Encryption.encrypt(user.Password);
-                user.Password = EncryptedPassword;
-                //Encrypting ConfirmPassword:
-                string EncryptedCOnfirmPassword = Encryption.encrypt(user.Confirmation);
-                user.Confirmation = EncryptedCOnfirmPassword;
+                
+                try
+                {
+                    //recive uploaded file as the profile image:
+                    //put all Code in try/catch block in order to prevent EXEPTION when user didnt insert any profileImage at all from first !
 
-                db.Users.Add(user);
+                    string filename = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                    string extention = Path.GetExtension(model.ImageFile.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + extention;
+                    model.ImagePath = "~/UserProfileImage/" + filename;
+                    filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), filename);
+                    model.ImageFile.SaveAs(filename);
+
+                    model.UserViewModel.ProfileImage = model.ImagePath;
+                }
+                catch (Exception)
+                {
+
+                    return View(model);
+                }
+                model.UserViewModel.ID = Guid.NewGuid();
+                //Encrypting password:
+                string EncryptedPassword = Encryption.encrypt(model.UserViewModel.Password);
+                model.UserViewModel.Password = EncryptedPassword;
+                //Encrypting ConfirmPassword:
+                string EncryptedCOnfirmPassword = Encryption.encrypt(model.UserViewModel.Confirmation);
+                model.UserViewModel.Confirmation = EncryptedCOnfirmPassword;
+
+
+
+                db.Users.Add(model.UserViewModel);
                 db.SaveChanges();
                 return RedirectToAction("Login");
 
             }
 
-            ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", user.RoleId);
-            return View(user);
-
+            ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", model.UserViewModel.RoleId);
+            return View(model);
 
         }
 
@@ -138,8 +156,23 @@ namespace ChatApp.Controllers
 
         public ActionResult LogOut()
         {
+            // set user status :offline! 
+            //{
+            var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+            string userid = ticketData["UserID"];
+            ClassesController c = new ClassesController();
+            User u = c.FindUserById(Guid.Parse(userid));
+            u.Status = false;
+            //}
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+
+
+        public ActionResult NiceLoginPage()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

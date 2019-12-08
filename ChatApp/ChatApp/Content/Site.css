@@ -27,3 +27,39 @@ textarea {
     color:red;
 }
 
+/*CSS for Uploading Image on SignUp User and Creating Class Actions ====>>>>from Url:*/
+/*https://stackoverflow.com/questions/37205438/image-upload-with-preview-and-delete-option-javascript-jquery */
+input[type="file"] {
+    display: block;
+}
+
+.imageThumb {
+    max-height: 75px;
+    border: 2px solid;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.pip {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+}
+
+.remove {
+    display: block;
+    background: #444;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .remove:hover {
+        background: white;
+        color: black;
+    }
+
+
+.rightLI{
+    float:right;
+}

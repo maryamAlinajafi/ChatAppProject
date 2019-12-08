@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Model;
 using FormsAuthenticationExtensions;
 using System.Web.Security;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace ChatApp.Controllers
     {
@@ -174,8 +176,25 @@ namespace ChatApp.Controllers
             string userid = ticketData["UserID"];
             User u = FindUserById(Guid.Parse(userid));
             Class c = FindClassById(id);
-            u.Classes.Remove(c);
-            db.SaveChanges();
+
+            //if the User is admin of class(=Professor) ,then Class must DESTROY at all 
+
+            if (c.AdminInfo==u.Username)
+            {
+                db.Classes.Remove(c);
+                db.SaveChanges();
+            }
+            else
+            {
+                //he is just a student:
+                u.Classes.Remove(c);
+                db.SaveChanges();
+            }
+
+
+
+            
+           
           
             return Json(true, JsonRequestBehavior.AllowGet);
          //   Redirect(Request.UrlReferrer.ToString());
@@ -205,8 +224,7 @@ namespace ChatApp.Controllers
                 string userid = ticketData["UserID"];
                 User u = FindUserById(Guid.Parse(userid));
 
-                try
-                {
+               
                     @class.AdminInfo = u.Username;
                     @class.MemberCount = 0;
                     db.Classes.Add(@class);
@@ -214,17 +232,23 @@ namespace ChatApp.Controllers
                     //add the creator(=professor) as one member :
                     @class.Users.Add(u);
                     @class.MemberCount++;
-                    //complete AdminInfo Column whit creator(=professor) Username :
-
-                    db.SaveChanges();
-
-                   
-                    return View("ClassSuccesfullyCreated");
-                }
-                catch (Exception)
+                //complete AdminInfo Column whit creator(=professor) Username :
+                try
                 {
-                    /////?????????????????????????????????????????????????/
-                    throw;
+                    db.SaveChanges();
+                    return View("ClassSuccesfullyCreated");
+
+                }
+
+
+                catch (DbUpdateException e)
+                {
+                    var sqlException = e.GetBaseException() as SqlException;
+                    //2601 is error number of unique index violation
+                    if (sqlException != null && sqlException.Number == 2601)
+                    {
+                        //Unique index was violated. Show corresponding error message to user.
+                    }
                 }
 
             }

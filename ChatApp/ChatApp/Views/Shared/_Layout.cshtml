@@ -18,6 +18,10 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    @*Login PAge Desine :*@
+    <link href="~/Content/LoginPage.css" rel="stylesheet" />
+    <script src="~/Scripts/LoginPage.js"></script>
+
 
     <title>@ViewBag.Title - ChatApp</title>
     @Styles.Render("~/Content/css")
@@ -25,45 +29,59 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Chat AppS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <nav style="position:relative">
+            <div dir="ltr">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Chat App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                
+                    <ul class="navbar-btn nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+              
+
+
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                <ul class="navbar-collapse collapse" dir="rtl" style="font-size:x-small">
 
-                    <li>@Html.ActionLink("SignUp", "SignUp", "AccountManager")</li>
+            <div class="rightLI">
+                <ul class="navbar-btn nav navbar-nav">
+                    <li>
+                        @Html.ActionLink("SignUp", "SignUp", "AccountManager")
+                    </li>
+                    <li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Login", "Login", "AccountManager")
+                        }
 
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "AccountManager")</li>
 
-                    }
+                        else
+                        {
+                            @Html.ActionLink("Logout", "LogOut", "AccountManager")
 
-                    else
-                    {
-                    <li>@Html.ActionLink("Logout", "LogOut", "AccountManager")</li>
-                    <li style=" color:darkorange">@User.Identity.Name</li>
-                @*//   <li><a href="">@User.Identity.Name</a></li> 
-                <li>
-                    @Html.ActionLink("MyProfile","Details", "Users", new { id = item.ID }) |
-                </li>*@
-                    }
-                   
-                </ul>
+
+                         }
+                        </li>
+                    <li>
+                        <a href="https://localhost:44355/Users/Edit" class="btn btn-default">@User.Identity.Name </a>
+                    </li>
+
+                    </ul>
             </div>
-        </div>
+               
+        </nav>
+        
     </div>
+
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />

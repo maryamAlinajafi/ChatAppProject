@@ -15,12 +15,15 @@ namespace Model
         [Key]
         public System.Guid ID { get; set; }
 
+        [Required]
 
         [MinLength(3), MaxLength(15)]
         public string Firstname { get; set; }
 
-        [MinLength(3), MaxLength(15)]
 
+        [Required]
+
+        [MinLength(3), MaxLength(15)]
         public string Lastname { get; set; }
 
 
@@ -31,10 +34,9 @@ namespace Model
         [Required]
         [MinLength(8)]
         public string Password { get; set; }
-
+        [Required]
         [ScaffoldColumn(false)]
         [Compare("Password",ErrorMessage ="Password and confirm not same! try again!")]
-        
         public string Confirmation { get; set; }
         public string ProfileImage { get; set; }
         public bool? Status { get; set; }

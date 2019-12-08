@@ -134,6 +134,8 @@
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\Messages1Controller.cs" />
     <Compile Include="Controllers\SweetController.cs" />
+    <Compile Include="Models\AddEditUserViewmodel.cs" />
+    <Compile Include="Models\CommonViewModels\ImageViewModel.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -202,6 +204,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UserProfileImage\Profile.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -255,13 +258,9 @@
     <Content Include="Views\Classes\ClassSuccesfullyCreated.cshtml" />
     <Content Include="Views\CommonPartialView\FindAndJoinNewClass.cshtml" />
     <Content Include="Views\Classes\FindClassByAccessCode.cshtml" />
-    <Content Include="Views\Messages1\Create.cshtml" />
-    <Content Include="Views\Messages1\Delete.cshtml" />
-    <Content Include="Views\Messages1\Details.cshtml" />
-    <Content Include="Views\Messages1\Edit.cshtml" />
-    <Content Include="Views\Messages1\Index.cshtml" />
     <Content Include="Views\Classes\UserSuccesfullyJoined.cshtml" />
     <Content Include="Views\Sweet\Alert.cshtml" />
+    <Content Include="Views\CommonPartialView\NiceLoginPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
