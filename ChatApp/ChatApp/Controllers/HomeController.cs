@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,11 +22,24 @@ namespace ChatApp.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ChangeLanguage(string lan)
         {
-            ViewBag.Message = "Your contact page.";
+            if (lan !=null )
+            {
+               
+                CultureInfo oci = new CultureInfo(lan);
+                System.Threading.Thread.CurrentThread.CurrentCulture = oci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = oci;
 
-            return View();
+                HttpCookie cookie = new HttpCookie("Language");
+                cookie.Value = lan;
+                Response.Cookies.Add(cookie);
+
+            }
+           
+           
+
+            return RedirectToAction("Index");
         }
     }
 }

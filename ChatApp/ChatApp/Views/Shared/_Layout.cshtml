@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/myCss.css")" rel="stylesheet" type="text/css" />
-
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/CustomCss.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -24,7 +25,15 @@
 
 
     <title>@ViewBag.Title - ChatApp</title>
-    @Styles.Render("~/Content/css")
+    @if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
+    {
+        <link href="@Url.Content("~/Content/bootstrap.rtl.css")" rel="stylesheet" type="text/css" />      
+    }
+    else
+    {
+        @Styles.Render("~/Content/css")
+
+    }
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -39,43 +48,105 @@
                     </button>
                     @Html.ActionLink("Chat App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
-                
-                    <ul class="navbar-btn nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-              
+
+                <ul class="navbar-btn nav navbar-nav">
+                    <li>@Html.ActionLink(ChatApp.App_GlobalResources.Global.Home, "Index", "Home")</li>
+                    <li>@Html.ActionLink(ChatApp.App_GlobalResources.Global.About, "About", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @Resources.Global.Language <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("English", "ChangeLanguage", "Home", new { lan = "en-US" }, null)</li>
+                            <li> @Html.ActionLink("فارسی", "ChangeLanguage", "Home", new { lan = "fa-IR" }, null)</li>
+                        </ul>
+                    </li>
+
+                    
+                </ul>
+
 
 
             </div>
+            @if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
+            {
+                <div class="fixLeft">
+                    <ul class="navbar-btn nav navbar-nav">
 
-            <div class="rightLI">
-                <ul class="navbar-btn nav navbar-nav">
-                    <li>
-                        @Html.ActionLink("SignUp", "SignUp", "AccountManager")
-                    </li>
-                    <li>
+                        <li>
+                            @Html.ActionLink(Resources.Global.SignUp, "SignUp", "AccountManager")
+                        </li>
+
                         @if (!User.Identity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Login", "Login", "AccountManager")
+                            <li>
+                                @Html.ActionLink(Resources.Global.Login, "Login", "AccountManager")
+                            </li>
+
+
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink(Resources.Global.Logout, "LogOut", "AccountManager")
+                            </li>
+                            <li>
+                                <a href="https://localhost:44355/Users/Edit" class="btn btn-default btn-xs">@User.Identity.Name </a>
+
+                            </li>
+                            if (!string.IsNullOrEmpty(Session["UserProfile"] as string))
+                            {
+                                <li>
+                                      <img src="@HttpContext.Current.Session["UserProfile"].ToString()" alt="aaaaa" width="20" height="20" />
+                                </li>
+                            }
+
                         }
 
 
-                        else
-                        {
-                            @Html.ActionLink("Logout", "LogOut", "AccountManager")
-
-
-                         }
-                        </li>
-                    <li>
-                        <a href="https://localhost:44355/Users/Edit" class="btn btn-default">@User.Identity.Name </a>
-                    </li>
 
                     </ul>
-            </div>
-               
+                </div>
+            }
+            else
+            {
+                <div class="fixRight">
+                    <ul class="navbar-btn nav navbar-nav">
+                        <li>
+                            @Html.ActionLink(Resources.Global.SignUp, "SignUp", "AccountManager")
+                        </li>
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink(Resources.Global.Login, "Login", "AccountManager")
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink(Resources.Global.Logout, "LogOut", "AccountManager")
+                            </li>
+                            <li>
+                                <a href="https://localhost:44355/Users/Edit" class="btn btn-default">@User.Identity.Name </a>
+
+                            </li>
+                            
+                            if (!string.IsNullOrEmpty(Session["UserProfile"] as string))
+                            { 
+                                var path= Session["UserProfile"].ToString();
+                                <li>
+                                    <img src=path alt="aaaaa" width="35" height="35" />
+                                </li>
+                            }
+                        }
+
+
+
+                    </ul>
+                </div>
+            }
+
+
         </nav>
         
     </div>

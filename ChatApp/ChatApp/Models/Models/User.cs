@@ -15,34 +15,60 @@ namespace Model
         [Key]
         public System.Guid ID { get; set; }
 
-        [Required]
-
-        [MinLength(3), MaxLength(15)]
+        [Required(ErrorMessageResourceType =typeof(Resources.ErrorMessages),ErrorMessageResourceName = "RequireError")]
+        [Display(Name = "Firstname", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [MinLength(3,ErrorMessageResourceType =typeof(Resources.ErrorMessages),ErrorMessageResourceName = "minLenght")]
+        [MaxLength(15, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "maxLenght")]
         public string Firstname { get; set; }
 
 
-        [Required]
-
-        [MinLength(3), MaxLength(15)]
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+        [Display(Name = "Lastname", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "minLenght")]
+        [ MaxLength(15, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "maxLenght")]
         public string Lastname { get; set; }
 
 
-        [Required]
-        [MinLength(8), MaxLength(15)]
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+        [Display(Name = "Username", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [MinLength(8, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "minLenght")]
+        [ MaxLength(15, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "maxLenght")]
         public string Username { get; set; }
 
-        [Required]
-        [MinLength(8)]
+
+
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+        [Display(Name = "Password", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [MinLength(8, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "minLenght")]
         public string Password { get; set; }
-        [Required]
+
+
+
+
+
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
         [ScaffoldColumn(false)]
-        [Compare("Password",ErrorMessage ="Password and confirm not same! try again!")]
+        [Display(Name = "Confirmation", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [Compare("Password",ErrorMessageResourceType =typeof(Resources.ErrorMessages),ErrorMessageResourceName = "CompereError")]
         public string Confirmation { get; set; }
+
+
+        [Display(Name = "ProfileImage", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
         public string ProfileImage { get; set; }
+
+
+
         public bool? Status { get; set; }
 
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "آدرس ایمیل وارد شده اشتباه است")]
+
+
+        [Display(Name = "EmailAddress", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]
         public string  EmailAddress{ get; set; }
+
+
+
+        [Display(Name = "PhoneNumber", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
         public string PhoneNumber { get; set; }
 
 
@@ -52,6 +78,9 @@ namespace Model
         //Relations:
         //To tbl : Role
         public virtual Role Role { get; set; }
+
+        [Display(Name = "RoleId", ResourceType = typeof(ChatApp.App_GlobalResources.Users))]
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
         public virtual int  RoleId { get; set; }
 
         //To tbl : Message

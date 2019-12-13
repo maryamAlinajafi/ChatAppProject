@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Web.Mvc;
 using System.Web.Security;
 using FormsAuthenticationExtensions;
@@ -137,14 +138,22 @@ namespace ChatApp.Controllers
                     filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), filename);
                     model.ImageFile.SaveAs(filename);
                     model.UserViewModel.ProfileImage = model.ImagePath;
-                }   
+                }
 
-                //Edit Statments goes here:
-                db.Entry(model.UserViewModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    //Edit Statments goes here:
+                    db.Entry(model.UserViewModel).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("MyClasses", "Classes");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(string.Empty, "ویرایش اطلاعات با خطا مواجه شده است.ممکن است حجم عکس شما بیشتر از 2 مگابایت باشد.دوباره تلاش کنید");
+                    return View(model);
+                }
+               
             }
-            //ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", user.RoleId);
             return View(model);
 
         }
@@ -206,6 +215,8 @@ namespace ChatApp.Controllers
             return user;
         }
 
+
+      
 
         protected override void Dispose(bool disposing)
         {

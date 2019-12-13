@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "CreateClass";
+    ViewBag.Title = Resources.ClassRF.CreatTitle;
     string showDiv=ViewBag.Finded;
 
 }
@@ -42,11 +42,11 @@
                 }))
                 {
                 <div class="col-md-6">
-                    <input type="text" name="accessCode" id="accessCode" placeholder="Your AccessCode that proffesor give you..." />
+                    <input type="text" name="accessCode" id="accessCode" placeholder="@Resources.ClassRF.placeHolder" />
 
                 </div>
                 <div class="col-md-3">
-                    <input type="submit" value="Search" class="btn btn-primary btn-success" />
+                    <input type="submit" value="@Resources.ClassRF.search_btn" class="btn btn-primary btn-success" />
 
                 </div>
 
@@ -57,7 +57,7 @@
             </div>
             <div class="row">
                   <div class="col-md-9"id="searchResult">
-                       here result will be show
+
                   </div>
              </div>
     </div>

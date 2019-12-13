@@ -1,19 +1,21 @@
 ﻿@model Model.User
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = Resources.Users.Login_Title;
 }
 
 <h2>Login</h2>
 <hr />
 <hr />
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
-    
+  
+
     <div class="form-horizontal container" style="align-content:center">
-       
+
         <div class="form-group row">
             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -30,16 +32,16 @@
             </div>
         </div>
 
-       
-       <br />
-      
-            <div class="form-group row">
-                 <div class="col-md-5">
-                         <input type="submit" value="Login" class="btn btn-default" />
-                 </div>
-             </div>
 
-        
+        <br />
+
+        <div class="form-group row">
+            <div class="col-md-5">
+                <input type="submit" value=@Resources.Users.Login_btn class="btn btn-default" />
+            </div>
+        </div>
+
+
 
 
     </div>
@@ -49,11 +51,11 @@
 }
 
 <div>
-    @Html.Label("Have NOT Account Now???")
-    @Html.ActionLink("SignUp now","Signup")
+    @Html.Label(Resources.Users.HaveNotAccont)
+    @Html.ActionLink(Resources.Users.signUpNow_lbl, "Signup",new { @class = "btn btn-default btn-default btn-success btn-lg" })
 </div>
 <script type="text/javascript">
-   $(document).ready(function () {
+    $(document).ready(function () {
         var roleManager = Request.QueryString["Role"];
         alert("You Are :" + roleManager);
 

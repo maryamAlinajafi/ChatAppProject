@@ -54,7 +54,7 @@ namespace ChatApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,MemberCount,Semester,AccessCode,AdminInfo,ProfileImage,UniversityId")] Class @class)
+        public ActionResult Create([Bind(Include = "ID,Title,MemberCount,Semester,AccessCode,AdminInfo,ProfileImage,UniversityId")] Model.Class @class)
         {
             if (ModelState.IsValid)
             {
@@ -316,22 +316,29 @@ namespace ChatApp.Controllers
         public ActionResult JoinClass(int id)
         {
 
+
             try
             {
                var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
                string userid = ticketData["UserID"];
                User u = FindUserById(Guid.Parse(userid));
                Class c = FindClassById(id);
-               db.Users.Attach(u);
+                ViewBag.StudentName = u.Firstname + " " + u.Lastname;
+                ViewBag.classname = "" + c.Title;
+                //check current user hane NOT enrolled in class yet:
+                if (u.Classes.Contains(c))
+                {
+                    return View("EnrollmentError");
+                }
+                db.Users.Attach(u);
                u.Classes.Add(c);               
                db.SaveChanges();
                 c.MemberCount++;
                 db.SaveChanges();
 
                 //Creating some viewbag to show User some Info about new class that he has joind:
-                ViewBag.classname = "" +c.Title;
+               
                 ViewBag.nth = "" + (c.Users.Count-1) ;
-                ViewBag.StudentName = u.Firstname + " " + u.Lastname;
                 return View("UserSuccesfullyJoined");
             }
             catch (Exception)

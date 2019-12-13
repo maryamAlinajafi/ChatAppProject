@@ -1,13 +1,11 @@
 ﻿@model Model.Class
     @if (Model.Title == null)
-{
+      {
 
-
-
-    <script type="text/javascript">
-        alert("کد وارد شده صحیح نمیباشد! ");
-    </script>
-}
+              <script type="text/javascript">
+                    alert("کد وارد شده صحیح نمیباشد");
+              </script>
+      }
 else
 {
     <html>
@@ -19,7 +17,7 @@ else
 
         <script type="text/javascript">
             function searchFaild() {
-                $("#searchResult").html("Sorry!!!! sorry!!! sorry!!!!!");
+                $("#searchResult").html("Sorry!!!! Some Error occurred, please try later");
             }
         </script>
         <style>
@@ -97,7 +95,7 @@ else
 
         <div>
 
-            @Html.ActionLink(" Join! ", "JoinClass", new { id = Model.ID }, new { @class = "btn btn-default btn-default btn-success btn-lg" }) |||
+            @Html.ActionLink(Resources.ClassRF.Join_btn, "JoinClass", new { id = Model.ID }, new { @class = "btn btn-default btn-default btn-success btn-lg" }) 
 
 
             @*@using (Ajax.BeginForm("JoinClass","Classes",new {classId=Model.ID },new AjaxOptions

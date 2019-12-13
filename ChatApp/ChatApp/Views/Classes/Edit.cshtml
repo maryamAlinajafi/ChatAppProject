@@ -1,12 +1,5 @@
 ﻿@model Model.Class
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -75,8 +68,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                <a href="#" class="btn btn-danger" >Cancle</a>
+                <input type="submit" value="@Resources.ClassRF.Edit_btn" class="btn btn-default" />
+                <a href="#" class="btn btn-danger" >@Resources.ClassRF.Cancle</a>
             </div>
         </div>
     </div>

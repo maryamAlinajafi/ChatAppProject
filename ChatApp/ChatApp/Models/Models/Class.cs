@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Web;
 
 namespace Model
 {
-  public  class Class
+    public class Class
+
     {
         public Class()
         {
@@ -21,19 +23,39 @@ namespace Model
         [Key]
         public int ID { get; set; }
 
-        [MinLength(3),MaxLength(80)]
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "minLenght")]
+        [MaxLength(25, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "maxLenght")]
+        [Display(Name = "Title", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
         public string Title { get; set; }
 
-        public int MemberCount { get; set; }
+        [Display(Name = "MemberCount", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
 
-        [Range(1, int.MaxValue, ErrorMessage = "Select a Items ")]
+        public int MemberCount { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "semesterRequire")]
+        [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "semesterRenge")]
+        [Display(Name = "Semester", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
         public ChatApp.Models.Enums.SemmesterEnum Semester { get; set; }
 
-        [Required(ErrorMessage ="پر کردن این فیلد اجباریست")]
-        [MinLength(8), MaxLength(15)]
-        [Index(IsUnique =true)]
-        public string  AccessCode { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+        [MinLength(8, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "minLenght")]
+        [MaxLength(15, ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "maxLenght")]
+        [Index(IsUnique = true)]
+        [Display(Name = "AccessCode", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
+
+        public string AccessCode { get; set; }
+
+
+
+        [Display(Name = "AdminInfo", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
         public string AdminInfo { get; set; }
+
+
+
+
+
+        [Display(Name = "ProfileImage", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
         public string ProfileImage { get; set; }
 
 
@@ -41,7 +63,7 @@ namespace Model
 
         //Relation:
 
-            //To tbl : User
+        //To tbl : User
         public virtual ICollection<User> Users { get; set; }
 
 
@@ -51,8 +73,11 @@ namespace Model
 
         //TO tbl:University
 
-        public virtual University University  { get; set; }
-        public virtual int  UniversityId { get; set; }
+        public virtual University University { get; set; }
+        [Display(Name = "UniversityId", ResourceType = typeof(ChatApp.App_GlobalResources.ClassRF))]
+        [Required(ErrorMessageResourceType = typeof(Resources.ErrorMessages), ErrorMessageResourceName = "RequireError")]
+
+        public virtual int UniversityId { get; set; }
 
         //To tbl : Resourses
 
@@ -65,6 +90,4 @@ namespace Model
 
 
     }
-
-
 }

@@ -1,7 +1,7 @@
 ﻿@model Model.AddEditUserViewmodel
 
 @{
-    ViewBag.Title = "SignUp";
+    ViewBag.Title = Resources.Users.SignUp_Title;
 }
 
 <div class="container">
@@ -13,19 +13,23 @@
 
 
         <div class="form-horizontal col-md-8">
-            <h4>User</h4>
+           
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserViewModel.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserViewModel.Firstname, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserViewModel.Firstname, "", new { @class = "text-danger" })
-                </div>
-            </div>
+          <div class="form-group a">
+     
+            @Html.LabelFor(model => model.UserViewModel.Firstname, htmlAttributes: new { @class = "control-label col-md-2 necessaryField" })
+
+              <div class="col-md-10">
+                 
+                  @Html.EditorFor(model => model.UserViewModel.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.UserViewModel.Firstname, "", new { @class = "text-danger" })
+              </div>
+
+          </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UserViewModel.Lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.UserViewModel.Lastname, htmlAttributes: new { @class = "control-label col-md-2 necessaryField" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.UserViewModel.Lastname, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UserViewModel.Lastname, "", new { @class = "text-danger" })
@@ -33,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UserViewModel.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.UserViewModel.Username, htmlAttributes: new { @class = "control-label col-md-2 necessaryField" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.UserViewModel.Username, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UserViewModel.Username, "", new { @class = "text-danger" })
@@ -41,7 +45,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UserViewModel.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.UserViewModel.Password, htmlAttributes: new { @class = "control-label col-md-2 necessaryField" })
                 <div class="col-md-10">
                     @Html.PasswordFor(model => model.UserViewModel.Password, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UserViewModel.Password, "", new { @class = "text-danger" })
@@ -84,19 +88,20 @@
 
 
             <div class="form-group">
+                <div class="col-md-2"></div>
                 <div class="col-md-10">
-                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "1") @Html.Label("Im Professor")
-                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "2") @Html.Label("Im Student ")
+                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "1") @Html.Label(Resources.Users.InstroctorRole)
+                    @Html.RadioButtonFor(model => model.UserViewModel.RoleId, "2") @Html.Label(Resources.Users.StudentRole)
                     @Html.ValidationMessageFor(model => model.UserViewModel.RoleId, "", new { @class = "text-danger" })
 
                 </div>
-               
+
 
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default btn-success btn-lg" />
+                    <input type="submit" value=@Resources.Users.Create_btn class="btn btn-default btn-success btn-lg" />
                 </div>
             </div>
         </div>
@@ -110,17 +115,22 @@
             <br />
 
 
-            <img src="~/UserProfileImage/Profile.png" id="previewImage" width="200" height="200" />
+            <img src="~/UserProfileImage/Profile.png" id="previewImage" width="250" height="250" />
             <hr />
-            <div id="removeParent" hidden><input type="button" id="btnRemoveProfile" value="Remove Image" class="btn btn-xs btn-danger" /></div>
             <br />
-            <form runat="server">
-                <input type="file" name="ImageFile" id="imgInp" />
-            </form>
-            <div style="background-color:aqua">
-                error message:
-                @Html.ValidationMessageFor(model => model.UserViewModel.ProfileImage, "", new { @class = "text-danger" })
+            <div class="container">
+                <div class="upload-btn-wrapper col-md-6">
+                    <form runat="server">
+                        <button class="btn btn-primary upload_btn">@Resources.Users.Upload_btn</button>
+                        <input type="file" name="ImageFile" id="imgInp" />
+                    </form>
 
+                </div>
+                <div id="removeParent" hidden><input type="button" id="btnRemoveProfile" value=@Resources.Users.Remove_btn class="btn btn-danger upload_btn btn-xs  col-md-6" /></div>
+
+            </div>
+            <div>              
+                @Html.ValidationMessageFor(model => model.UserViewModel.ProfileImage, "", new { @class = "text-danger" })
             </div>
 
 
@@ -162,6 +172,7 @@
 
 </script>
 
+<link rel="stylesheet" type="text/css" href="~/Content/ProfileImage.css" />
 
 
 @section Scripts {

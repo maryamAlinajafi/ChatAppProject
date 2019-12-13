@@ -1,0 +1,30 @@
+﻿.picture img:hover {
+    transform:scale(1.1);
+}
+
+/* css code for design of "Uploading buttomn" */
+/* copied from :https://codepen.io/adambene/pen/xRWrXN */
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload_btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 6px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor:grab;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}

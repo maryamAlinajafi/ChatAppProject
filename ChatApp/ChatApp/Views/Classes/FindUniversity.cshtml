@@ -1,45 +1,49 @@
 ﻿@model Model.Class
 
 @{
-    ViewBag.Title = "Creating Class!";
+    ViewBag.Title =Resources.ClassRF.CreatTitle;
 }
 
+<hr />
 
-<h2>Creating Class!</h2>
+    <h2>Resources.ClassRF.SelectUniversity</h2>
 
 
 @using (Html.BeginForm("CreateClass", "Classes",FormMethod.Get))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal" style="float:inherit">
 
+    <br />
+    <br />
 
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UniversityId, "UniversityId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UniversityId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UniversityId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.UniversityId, "UniversityId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("UniversityId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UniversityId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-
-        <div class="form-group">
-            <p><a class="btn btn-default btn-success btn-lg col-md-5" href="https://localhost:44355/Universities/Create">Add University&raquo;</a></p>
-
+    <div class="text-justify">
+        <div class="btn-success col-md-offset-2 col-md-10">
+            <input type="submit" value="@Resources.ClassRF.Ok_btn" class="btn btn-default" />
         </div>
+    </div>
 
 
-
-
-        <div class="text-justify">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Ok" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="form-group">
+        <p><a class="btn btn-default  btn-lg btn-primary col-md-5" href="https://localhost:44355/Universities/Create">@Resources.ClassRF.AddUniversity_btn&raquo;</a></p>
 
     </div>
+
+
+
+
+
+
+</div>
 }
 
 

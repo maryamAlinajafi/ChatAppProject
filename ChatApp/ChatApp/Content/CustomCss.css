@@ -1,0 +1,9 @@
+﻿body {
+}
+
+.necessaryField::before {
+    content: " * ";
+    font-weight: bold;
+    color: red;
+    font-size:small;
+}

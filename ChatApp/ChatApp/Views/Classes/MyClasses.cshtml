@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Model.Class>
 @{
-    ViewBag.Title = "My Classes:";
+    ViewBag.Title = Resources.ClassRF.MyClasses;
     int roleid=@ViewBag.UserRoleId;
 
 
@@ -22,7 +22,9 @@
             <tr>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.ProfileImage)
+
+                    @*Html.DisplayNameFor(model => model.ProfileImage)*@
+                          
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
@@ -42,7 +44,8 @@
         <tr>
 
             <td>
-                @Html.DisplayFor(modelItem => item.ProfileImage)
+                @*@Html.DisplayFor(modelItem => item.ProfileImage)*@
+                <img src="~/UserProfileImage/Profile.png" width="40" height="40" style="border-radius:20px"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -51,6 +54,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.University.UniversityTitle)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.AdminInfo)
             </td>
@@ -61,15 +65,15 @@
 
             <td>
 
-                @Html.ActionLink("Open Class", "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
-                @*@Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })*@
-                <input type="button" class="btnLeavingClass btn btn-danger btn-sm " value="Leave Class" />
+                 @Html.ActionLink(Resources.ClassRF.OpenClass, "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
+                 @*@Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })*@
+                <input type="button" class="btnLeavingClass btn btn-danger btn-sm " value="@Resources.ClassRF.LeaveClass_btn" />
 
             </td>
 
         </tr>
 
-            }
+           }
 
         </table>
 
@@ -98,8 +102,8 @@
             $(".btnLeavingClass").click(function () {
 
                 swal({
-                    title: "Are you sure?",
-                    text: "Once Leaving, you will not be able to enter aagin unless enroll via accesscode!",
+                    title: "??  Are you sure",
+                    text: "  Once Leaving, you Wont be able to enter class agin         ,unless enroll via accesscode",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -116,7 +120,9 @@
                                 contentType: 'application/json; charset=utf-8',
                                 success: function () {
 
-                                    swal("You Left This Class", "Hope that class was benefit for you...", { buttons: false });
+                                 @*   swal(@Html.Raw(Resources.ClassRF.LeftClass_msgHeader),@Html.Raw(Resources.ClassRF.LeftClass_msgText), { buttons: false });*@
+                                swal("You Left This Class","We Hope that,This class was benefit for you...", { buttons: false });
+
                                     window.location.reload();
                                 },
                                 error: function (xhr, status, error) {

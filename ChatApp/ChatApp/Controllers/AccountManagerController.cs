@@ -4,6 +4,7 @@ using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -59,6 +60,8 @@ namespace ChatApp.Controllers
                     new FormsAuthentication().SetAuthCookie(u.Username, true, ticketData);
                     //Status field show that the whether the user is online or offline !
                     u.Status = true;
+                    //save profile url in viewbag:
+                    Session["UserProfile"] = u.ProfileImage;
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//")
                         && !returnUrl.StartsWith("/\\"))
                     {
@@ -67,14 +70,14 @@ namespace ChatApp.Controllers
 
                     else
                     {
-                        //ModelState.AddModelError("", "Invalid   URL!!!!!!!!!!");
                         return RedirectToAction("MyClasses", "Classes");
                     }
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username or Password Not Correct!!!!!!");
+                    ModelState.AddModelError(string.Empty, "!نام کاربری یا رمز عبور اشتباه است");
+                    ModelState.Clear();
                     return View();
 
                 }
@@ -186,6 +189,8 @@ namespace ChatApp.Controllers
             return View();
         }
 
+
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

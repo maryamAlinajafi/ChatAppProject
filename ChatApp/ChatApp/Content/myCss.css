@@ -23,7 +23,7 @@
 
 
 body {
-    background-color: #f1f1f1;
+    background-color:red;
     font-family: Helvetica,Arial,Verdana;
 }
 
@@ -93,3 +93,8 @@ h1 {
 .search-box:not(:valid) ~ .close-icon {
     display: none;
 }
+
+
+    .picture img:hover {
+        transform: scale(1.1);
+    }
