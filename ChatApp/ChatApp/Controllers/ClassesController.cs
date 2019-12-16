@@ -11,23 +11,32 @@ using FormsAuthenticationExtensions;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.Data.Entity.Infrastructure;
+using ChatApp.Filter;
 
 namespace ChatApp.Controllers
     {
     [Authorize]
+    [NitishAuthentication]
     public class ClassesController : Controller
     {
         private ChatAppContext db = new ChatAppContext();
 
 
         // GET: Classes
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var classes = db.Classes.Include(u => u.University);
+            foreach (var item in classes.ToList())
+            {
+                item.MemberCount = item.Users.Count;
+            }
             return View(classes.ToList());
         }
 
-        // GET: Classes/Details/5
+
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,41 +51,40 @@ namespace ChatApp.Controllers
             return View(@class);
         }
 
-        // GET: Classes/Create
-        public ActionResult Create()
-        {
-            ViewBag.UniversityId = new SelectList(db.Universities, "ID", "UniversityTitle");
-            return View();
-        }
+        //// GET: Classes/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.UniversityId = new SelectList(db.Universities, "ID", "UniversityTitle");
+        //    return View();
+        //}
 
-        // POST: Classes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,MemberCount,Semester,AccessCode,AdminInfo,ProfileImage,UniversityId")] Model.Class @class)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Classes.Add(@class);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception)
-                {
-                   /////?????????????????????????????????????????????????/
-                    throw;
-                }
-               
-            }
+        //// POST: Classes/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "ID,Title,MemberCount,Semester,AccessCode,AdminInfo,ProfileImage,UniversityId")] Model.Class @class)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            db.Classes.Add(@class);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        catch (Exception)
+        //        {
+        //           /////?????????????????????????????????????????????????/
+        //            throw;
+        //        }
 
-            ViewBag.UniversityId = new SelectList(db.Universities, "ID", "UniversityTitle", @class.UniversityId);
-            return View(@class);
-        }
+        //    }
 
-        // GET: Classes/Edit/5
+        //    ViewBag.UniversityId = new SelectList(db.Universities, "ID", "UniversityTitle", @class.UniversityId);
+        //    return View(@class);
+        //}
+        [Authorize(Roles = "Admin,Professor")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -109,7 +117,10 @@ namespace ChatApp.Controllers
             return View(@class);
         }
 
-        // GET: Classes/Delete/5
+        //ابن اکشن مستقیم توسط استاد  صدا زده نمیشود.بلکه هر استاد برای حذف کلاسش میتواند از آن لفت دهد
+        //به این ترتیب با لفت دادن ادمین کلاس حذف خواهد شد
+        //پس فقط توسط اذمین صدا زده میشود
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,7 +135,7 @@ namespace ChatApp.Controllers
             return View(@class);
         }
 
-        // POST: Classes/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -145,13 +156,11 @@ namespace ChatApp.Controllers
 
 
 
-
-
         public ActionResult MyClasses()
         {   //Goal:show ether "CreationClassPage " or "JoinClassPage " To the User,Depend on What is his Role ?!
             var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
                   //  ViewBag.UserID = ticketData["UserID"];          
-            //Note: ROleID for Students:2   &   ROleID for Proffesors:1
+            //Note: ROleID for Students:1012   &   ROleID for Proffesors:1011
             ViewBag.UserRoleId =int.Parse(ticketData["UserRoleId"]);
 
 
@@ -168,7 +177,7 @@ namespace ChatApp.Controllers
 
         }
 
-        public JsonResult LeftClass()
+       public JsonResult LeftClass()
         {
             int id = Int32.Parse(Request["id"]);
            
@@ -201,17 +210,21 @@ namespace ChatApp.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,Professor")]
         public ActionResult FindUniversity()
         {
             ViewBag.UniversityId = new SelectList(db.Universities, "ID", "UniversityTitle");
             return View();
-
+            
         }
+        [Authorize(Roles = "Admin,Professor")]
         public ActionResult CreateClass()
         {
             return View();
         }
 
+
+        [Authorize(Roles = "Admin,Professor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateClass([Bind(Include = "ID,Title,MemberCount,Semester,AccessCode,AdminInfo,ProfileImage,UniversityId")] Class @class)
@@ -248,7 +261,7 @@ namespace ChatApp.Controllers
                     if (sqlException != null && sqlException.Number == 2601)
                     {
                         //Unique index was violated. Show corresponding error message to user:
-                        ModelState.AddModelError("AccessCode", "کدورود انتخاب شده تکراری میباشد...");
+                        ModelState.AddModelError("AccessCode", "این کد قبلا برای کلاس دیگری رزرو شده است. لطفا کدورود  دیگری برای کلاس خود انتخاب کنید");
                     }
                 }
 
@@ -298,21 +311,21 @@ namespace ChatApp.Controllers
         {
 
             Class c = new Class();
-
-
             if (accessCode == null)           
                 return PartialView(c);
             
 
             Class @class = db.Classes.Where(x => x.AccessCode == accessCode).FirstOrDefault();
-
+           
             if (@class == null)
                 return PartialView(c);
 
+            @class.MemberCount = @class.Users.Count;
             return PartialView(@class);
 
         }
 
+        [Authorize(Roles="Student")]
         public ActionResult JoinClass(int id)
         {
 
@@ -325,7 +338,7 @@ namespace ChatApp.Controllers
                Class c = FindClassById(id);
                 ViewBag.StudentName = u.Firstname + " " + u.Lastname;
                 ViewBag.classname = "" + c.Title;
-                //check current user hane NOT enrolled in class yet:
+                //check current user have NOT enrolled in class yet:
                 if (u.Classes.Contains(c))
                 {
                     return View("EnrollmentError");
@@ -336,9 +349,9 @@ namespace ChatApp.Controllers
                 c.MemberCount++;
                 db.SaveChanges();
 
-                //Creating some viewbag to show User some Info about new class that he has joind:
-               
-                ViewBag.nth = "" + (c.Users.Count-1) ;
+                //Creating some viewbag to show User some Info about new class that he has joind recently:
+                c.MemberCount = c.Users.Count();
+                ViewBag.nth = "" + (c.MemberCount-1) ;
                 return View("UserSuccesfullyJoined");
             }
             catch (Exception)

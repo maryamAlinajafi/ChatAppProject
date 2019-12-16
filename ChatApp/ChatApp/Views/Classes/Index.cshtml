@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<hr />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "FindUniversity","Classes",null,new { @class = "btn btn-default btn-success" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileImage)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.University.UniversityTitle)
         </th>
@@ -29,41 +31,42 @@
         <th>
             @Html.DisplayNameFor(model => model.AdminInfo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileImage)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.University.UniversityTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MemberCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Semester)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfileImage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        <img src="~/ClassProfileImages/ClaccIcon.jpg" width="35" height="35" style="border-radius:35px" />
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.University.UniversityTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MemberCount)
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Semester)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AccessCode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AdminInfo)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID },new { @class = "btn btn-default btn-primary btn-sm" }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID },new { @class = "btn btn-default btn-success btn-sm" }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID },new { @class = "btn btn-default btn-danger btn-sm" })
+    </td>
+</tr>
 }
 
 </table>

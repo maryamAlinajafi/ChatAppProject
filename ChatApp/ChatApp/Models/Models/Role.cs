@@ -14,7 +14,8 @@ namespace Model
         }
         [Key]
         public int ID { get; set; }
-        [Required]
+
+        [Display(Name = "", ResourceType = typeof(ChatApp.App_GlobalResources.Global))]
         public string RoleName { get; set; }
 
         //Relation:

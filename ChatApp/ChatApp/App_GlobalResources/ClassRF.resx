@@ -123,6 +123,9 @@
   <data name="AddUniversity-btn" xml:space="preserve">
     <value>Add My University </value>
   </data>
+  <data name="AddUniversity-msg" xml:space="preserve">
+    <value>If your University is NOT  in list ,lets add it... </value>
+  </data>
   <data name="AdminInfo" xml:space="preserve">
     <value>AdminInfo</value>
   </data>

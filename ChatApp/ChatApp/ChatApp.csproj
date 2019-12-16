@@ -157,6 +157,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Global.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\UniversityRF.fa-IR.designer.cs">
+      <DependentUpon>UniversityRF.fa-IR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\UniversityRF.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UniversityRF.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Users.fa-IR.designer.cs">
       <DependentUpon>Users.fa-IR.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -172,8 +182,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountManagerController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\Messages1Controller.cs" />
     <Compile Include="Controllers\SweetController.cs" />
+    <Compile Include="Filter\NitishAuthentication.cs" />
     <Compile Include="Models\AddEditUserViewmodel.cs" />
     <Compile Include="Models\CommonViewModels\ImageViewModel.cs" />
     <Compile Include="Models\Models\Class.cs" />
@@ -195,11 +207,19 @@
     <Compile Include="Models\CommonViewModels\LoginViewModel.cs" />
     <Compile Include="Models\Enums\SemmesterEnum.cs" />
     <Compile Include="Models\Models\ChatAppContext.cs" />
+    <Compile Include="WebRoleProvider\WebRoleProvider.cs" />
     <EmbeddedResource Include="App_GlobalResources\ClassRF.fa-IR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ClassRF.fa-IR.designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Models\lastClass.cs" />
+    <EmbeddedResource Include="App_GlobalResources\UniversityRF.fa-IR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UniversityRF.fa-IR.designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\UniversityRF.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UniversityRF.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <Compile Include="Models\Models\Message.cs" />
     <Compile Include="Models\Models\Project.cs" />
     <Compile Include="Models\Models\Resource.cs" />
@@ -209,12 +229,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClassProfileImages\ClaccIcon.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\CustomCss.css" />
+    <Content Include="Content\Error401.css" />
+    <Content Include="Content\Error404.css" />
     <Content Include="Content\lightbox.min.css" />
     <Content Include="Content\LoadingPic\ajax-loader %281%29.gif" />
     <Content Include="Content\myCss.css" />
@@ -303,7 +326,6 @@
     <Content Include="Views\AccountManager\SignUp.cshtml" />
     <Content Include="Views\Classes\MyClasses.cshtml" />
     <Content Include="Views\CommonPartialView\ShowCreationButomn.cshtml" />
-    <Content Include="Views\Classes\FindUniversity.cshtml" />
     <Content Include="Views\Classes\CreateClass.cshtml" />
     <Content Include="Views\Classes\ClassSuccesfullyCreated.cshtml" />
     <Content Include="Views\CommonPartialView\FindAndJoinNewClass.cshtml" />
@@ -312,11 +334,14 @@
     <Content Include="Views\Sweet\Alert.cshtml" />
     <Content Include="Views\CommonPartialView\NiceLoginPage.cshtml" />
     <Content Include="Views\Classes\EnrollmentError.cshtml" />
+    <Content Include="Views\Shared\UnAuthorizeErrorPage.cshtml" />
+    <Content Include="Views\Classes\FindUniversity.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructuree\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

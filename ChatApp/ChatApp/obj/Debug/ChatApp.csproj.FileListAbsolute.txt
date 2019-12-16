@@ -332,3 +332,6 @@ C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\
 C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.App_GlobalResources.Users.fa-IR.resources
 C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.App_GlobalResources.ClassRF.fa-IR.resources
 C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.App_GlobalResources.ClassRF.resources
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.App_GlobalResources.UniversityRF.resources
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.App_GlobalResources.UniversityRF.fa-IR.resources
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.csprojAssemblyReference.cache

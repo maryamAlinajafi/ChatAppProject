@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="ClassesList" xml:space="preserve">
+    <value>List of all Classes</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -130,9 +133,21 @@
     <value>Login</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
+    <value>Logoff</value>
+  </data>
+  <data name="ProfessorStart" xml:space="preserve">
+    <value>Lets Start as Profrssors !</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>SignUp</value>
+    <value>Register</value>
+  </data>
+  <data name="StudentStart" xml:space="preserve">
+    <value>Lets Start as Student !</value>
+  </data>
+  <data name="UsersList" xml:space="preserve">
+    <value>List of all Users</value>
   </data>
 </root>

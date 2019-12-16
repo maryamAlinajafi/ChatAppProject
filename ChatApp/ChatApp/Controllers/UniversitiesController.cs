@@ -37,6 +37,8 @@ namespace ChatApp.Controllers
         }
 
         // GET: Universities/Create
+        [Authorize(Roles = "Admin,Professor")]
+
         public ActionResult Create()
         {
             return View();

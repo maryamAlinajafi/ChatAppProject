@@ -70,6 +70,15 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List of all Classes.
+        /// </summary>
+        public static string ClassesList {
+            get {
+                return ResourceManager.GetString("ClassesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -97,7 +106,7 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logout.
+        ///   Looks up a localized string similar to Logoff.
         /// </summary>
         public static string Logout {
             get {
@@ -106,11 +115,47 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SignUp.
+        ///   Looks up a localized string similar to Lets Start as Profrssors !.
+        /// </summary>
+        public static string ProfessorStart {
+            get {
+                return ResourceManager.GetString("ProfessorStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets Start as Student !.
+        /// </summary>
+        public static string StudentStart {
+            get {
+                return ResourceManager.GetString("StudentStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of all Users.
+        /// </summary>
+        public static string UsersList {
+            get {
+                return ResourceManager.GetString("UsersList", resourceCulture);
             }
         }
     }

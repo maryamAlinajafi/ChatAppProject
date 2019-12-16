@@ -1,10 +1,6 @@
 ﻿@model Model.AddEditUserViewmodel
     <br />
-@{
-    ViewBag.Title = "Edit My Profile Info";
 
-
-}
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/ProfileImage.css" />
@@ -16,7 +12,7 @@
 
 
 
-    <h2>Edit My Profile Info</h2>
+   <hr />
 
     <div class="container">
         @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))

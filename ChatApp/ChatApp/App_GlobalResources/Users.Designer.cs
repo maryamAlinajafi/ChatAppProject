@@ -70,7 +70,7 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm.
+        ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
         public static string Confirmation {
             get {
@@ -151,7 +151,7 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to انتخاب زبان.
+        ///   Looks up a localized string similar to change Language.
         /// </summary>
         public static string Language {
             get {

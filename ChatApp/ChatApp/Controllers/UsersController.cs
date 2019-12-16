@@ -6,24 +6,27 @@ using System.Net;
 using System.Resources;
 using System.Web.Mvc;
 using System.Web.Security;
+using ChatApp.Filter;
 using FormsAuthenticationExtensions;
 using Model;
 
 namespace ChatApp.Controllers
 {
     [Authorize]
+    [NitishAuthentication]
+
     public class UsersController : Controller
     {
         private ChatAppContext db = new ChatAppContext();
 
-        // GET: Users
+        [Authorize(Roles="Admin")]
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.Role);
             return View(users.ToList());
         }
 
-        // GET: Users/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -38,39 +41,39 @@ namespace ChatApp.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
-        public ActionResult Create()
-        {
-            ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName");
-            return View();
-        }
+ 
+        //public ActionResult Create()
+        //{
+        //    ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName");
+        //    return View();
+        //}
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Firstname,Lastname,Username,Password,ProfileImage,Status,EmailAddress,PhoneNumber,RoleId,Confirmation")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                user.ID = Guid.NewGuid();
-                //Encrypting password:
-                string EncryptedPassword =Encryption.encrypt(user.Password);
-                user.Password = EncryptedPassword;
-                //Encrypting ConfirmPassword:
-                string EncryptedCOnfirmPassword = Encryption.encrypt(user.Confirmation);
-                user.Confirmation= EncryptedCOnfirmPassword;
+        //// POST: Users/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "ID,Firstname,Lastname,Username,Password,ProfileImage,Status,EmailAddress,PhoneNumber,RoleId,Confirmation")] User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        user.ID = Guid.NewGuid();
+        //        //Encrypting password:
+        //        string EncryptedPassword =Encryption.encrypt(user.Password);
+        //        user.Password = EncryptedPassword;
+        //        //Encrypting ConfirmPassword:
+        //        string EncryptedCOnfirmPassword = Encryption.encrypt(user.Confirmation);
+        //        user.Confirmation= EncryptedCOnfirmPassword;
 
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Login");
-            }
+        //        db.Users.Add(user);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Login");
+        //    }
 
-            ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", user.RoleId);
-            return View(user);
+        //    ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", user.RoleId);
+        //    return View(user);
             
-        }
+        //}
 
 
         //Edit Method has been changed...
@@ -91,6 +94,7 @@ namespace ChatApp.Controllers
         //    ViewBag.RoleId = new SelectList(db.Roles, "ID", "RoleName", user.RoleId);
         //    return View(user);
         //}
+
         public ActionResult Edit()
         {
             var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
@@ -126,11 +130,13 @@ namespace ChatApp.Controllers
                 //Check wether User has Change his ProfileImage OR not??  :
                 if (model.ImageFile !=null )
                 {
+
                     //deleting current profileimage from folder:
                     string filePath = Server.MapPath(model.UserViewModel.ProfileImage);
                     if (System.IO.File.Exists(filePath))
                           System.IO.File.Delete(filePath);
 
+                    //seve new profile Imag:
                     string filename = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
                     string extention = Path.GetExtension(model.ImageFile.FileName);
                     filename = filename + DateTime.Now.ToString("yymmssfff") + extention;
@@ -138,6 +144,13 @@ namespace ChatApp.Controllers
                     filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), filename);
                     model.ImageFile.SaveAs(filename);
                     model.UserViewModel.ProfileImage = model.ImagePath;
+
+                    //Update profile Image on the header :
+
+                        string cookieTitle = model.UserViewModel.Username;
+                        Response.Cookies[cookieTitle].Value = model.ImagePath;
+
+                    
                 }
 
                 try
@@ -158,11 +171,6 @@ namespace ChatApp.Controllers
 
         }
 
-        public ActionResult DeleteProfileImage()
-        {
-            return View();
-
-        }
 
 
 
@@ -171,8 +179,8 @@ namespace ChatApp.Controllers
 
 
 
+        //=Delete Account
 
-        // GET: Users/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)

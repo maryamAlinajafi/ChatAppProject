@@ -79,6 +79,15 @@ namespace ChatApp.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If your University is NOT  in list ,lets add it... .
+        /// </summary>
+        public static string AddUniversity_msg {
+            get {
+                return ResourceManager.GetString("AddUniversity-msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AdminInfo.
         /// </summary>
         public static string AdminInfo {

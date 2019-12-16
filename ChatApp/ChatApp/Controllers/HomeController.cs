@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ChatApp.Controllers
 {
+  
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -36,10 +37,10 @@ namespace ChatApp.Controllers
                 Response.Cookies.Add(cookie);
 
             }
-           
-           
 
-            return RedirectToAction("Index");
+
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

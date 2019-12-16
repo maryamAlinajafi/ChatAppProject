@@ -45,7 +45,7 @@
 
             <td>
                 @*@Html.DisplayFor(modelItem => item.ProfileImage)*@
-                <img src="~/UserProfileImage/Profile.png" width="40" height="40" style="border-radius:20px"/>
+                <img src="~/ClassProfileImages/ClaccIcon.jpg" width="40" height="40" style="border-radius:20px"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -81,7 +81,7 @@
 
     <div style="align-content:center">
         @*if User is a professor,"Creation Botomn " will be apear..... *@
-        @if (roleid == 1)
+        @if (roleid == 1011)
         {
             @Html.Partial("~/Views/CommonPartialView/ShowCreationButomn.cshtml");
 

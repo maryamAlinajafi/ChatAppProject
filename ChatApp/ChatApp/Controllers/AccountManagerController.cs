@@ -14,12 +14,6 @@ namespace ChatApp.Controllers
     {
         private ChatAppContext db = new ChatAppContext();
 
-        // GET: AccountManager
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Login()
         {
@@ -58,10 +52,28 @@ namespace ChatApp.Controllers
                              { "UserRoleId", u.RoleId.ToString() }
                        };
                     new FormsAuthentication().SetAuthCookie(u.Username, true, ticketData);
+
+                    //declare a cookie for admin inorder to make difference in layout for him:
+                    if (u.RoleId==1010)
+                    {
+                        Response.Cookies["adminCookie"].Value = "admin";
+
+                    }
+
+
                     //Status field show that the whether the user is online or offline !
                     u.Status = true;
-                    //save profile url in viewbag:
-                    Session["UserProfile"] = u.ProfileImage;
+                    //save profile url in coocki:
+                    
+                    if (u.ProfileImage != null)
+                    {
+                        string cookieTitle = u.Username;
+                        Response.Cookies[cookieTitle].Value = u.ProfileImage;
+
+                    }
+
+
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//")
                         && !returnUrl.StartsWith("/\\"))
                     {
@@ -89,7 +101,7 @@ namespace ChatApp.Controllers
 
 
 
-
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         public ActionResult SignUp()
         {
             //return RedirectToAction("Create", "Users");
@@ -178,6 +190,18 @@ namespace ChatApp.Controllers
             User u = c.FindUserById(Guid.Parse(userid));
             u.Status = false;
             //}
+            //destroy Admin Cookie:
+            if (Request.Cookies["adminCookie"] != null)
+            {
+                Response.Cookies["adminCookie"].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            //destroy Profile Cookie:
+            if (Request.Cookies["ProfileImage"] != null)
+            {
+                Response.Cookies["ProfileImage"].Expires = DateTime.Now.AddDays(-1);
+            }
+
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

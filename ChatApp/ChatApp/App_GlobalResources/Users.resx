@@ -121,7 +121,7 @@
     <value>Cancle</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirm Password</value>
   </data>
   <data name="Create-btn" xml:space="preserve">
     <value>enroll</value>
@@ -148,7 +148,7 @@
     <value>Im Instroctor</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>انتخاب زبان</value>
+    <value>change Language</value>
   </data>
   <data name="Lastname" xml:space="preserve">
     <value>Last Name</value>

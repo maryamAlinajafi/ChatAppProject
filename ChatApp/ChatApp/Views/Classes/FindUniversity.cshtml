@@ -1,144 +1,52 @@
 ﻿@model Model.Class
 
 @{
-    ViewBag.Title =Resources.ClassRF.CreatTitle;
+    ViewBag.Title = Resources.ClassRF.CreatTitle;
 }
 
 <hr />
-
-    <h2>Resources.ClassRF.SelectUniversity</h2>
-
-
-@using (Html.BeginForm("CreateClass", "Classes",FormMethod.Get))
+@using (Html.BeginForm("CreateClass", "Classes", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal" style="float:inherit">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="jumbotron">
+        <tr>
+            <td height="77" align="center" valign="middle"> <h3>@Resources.ClassRF.SelectUniversity</h3></td>
+        </tr>
+        <tr>
+            <td height="75" align="center" valign="middle">
+                <div class="form-group">
 
-    <br />
-    <br />
+                    @Html.DropDownList("UniversityId", null, htmlAttributes: new { @class = "form-control mycombo" })
+                    @Html.ValidationMessageFor(model => model.UniversityId, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.UniversityId, "UniversityId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("UniversityId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UniversityId, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                </div>
+            </td>
+        </tr>
 
-    <div class="text-justify">
-        <div class="btn-success col-md-offset-2 col-md-10">
-            <input type="submit" value="@Resources.ClassRF.Ok_btn" class="btn btn-default" />
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <p><a class="btn btn-default  btn-lg btn-primary col-md-5" href="https://localhost:44355/Universities/Create">@Resources.ClassRF.AddUniversity_btn&raquo;</a></p>
-
-    </div>
-
-
-
-
-
-
-</div>
+        <tr>
+            <td height="60" align="center" valign="middle">
+                <div>
+                    <input type="submit" value="@Resources.ClassRF.Ok_btn" class="btn btn-default btn-success btn-lg" style="padding-right:100px;padding-left:100px" />
+                </div>
+            </td>
+        </tr>
+        <tr style="height:100px"></tr>
+        <tr>
+            <td height="92" align="center" valign="middle">
+                <p><a class="btn btn-default  btn-lg btn-primary" style="padding-right:200px;padding-left:200px" href="https://localhost:44355/Universities/Create">@Resources.ClassRF.AddUniversity_btn&raquo;</a></p>
+                <h5>@Resources.ClassRF.AddUniversity_msg</h5>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
 }
-
-
-
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-
-
-
-
-
-
-
-
-
-
-@*Using Ajax??? yes OR no???????*@
-
-
-
-@*<div id="myDiv" style="background-color:blueviolet">
-        hello
-        <h1>Im here!</h1>
-    </div>
-
-
-
-    <div>
-        @Ajax.ActionLink("BY AJAX!", "CreatingClass2", "Classes", new AjaxOptions
-        {
-          UpdateTargetId = "myDiv",
-          InsertionMode = InsertionMode.Replace,
-          HttpMethod = "Post"
-
-
-
-        },
-           new { @class = "btn btn-default btn-success" })
-
-    </div>*@
-
-
-
-
-
-
-
-@*<h2>Create</h2>
-
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Class</h4>
-        <hr />
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UniversityId, "UniversityId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UniversityId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UniversityId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <p><a class="btn btn-default btn-success btn-lg col-md-10" href="https://localhost:44355/Universities/Create">Add University&raquo;</a></p>
-
-        </div>
-        <div id="myDiv">
-
-        </div>
-
-
-
-        <div>
-            @Ajax.ActionLink("OK", "Create", "Classes", new AjaxOptions
-            {
-              HttpMethod = "Post",
-                InsertionMode = InsertionMode.Replace
-               ,
-                UpdateTargetId = "myDiv",
-
-            },
-               new { @class = "btn btn-default btn-success" })
-
-        </div>
-
-
-    </div>
-    }*@
-
-

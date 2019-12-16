@@ -59,18 +59,27 @@
                             <li> @Html.ActionLink("فارسی", "ChangeLanguage", "Home", new { lan = "fa-IR" }, null)</li>
                         </ul>
                     </li>
+                    @if (User.Identity.IsAuthenticated && Request.Cookies["adminCookie"] != null && Request.Cookies["adminCookie"].Value.ToString() == "admin")
+                    {
 
-                    
+                        <li>@Html.ActionLink(ChatApp.App_GlobalResources.Global.ClassesList, "Index", "Classes")</li>
+                        <li>@Html.ActionLink(ChatApp.App_GlobalResources.Global.UsersList, "Index", "Users")</li>
+
+
+                    }
+
+
+
                 </ul>
 
 
 
             </div>
+
             @if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
             {
                 <div class="fixLeft">
                     <ul class="navbar-btn nav navbar-nav">
-
                         <li>
                             @Html.ActionLink(Resources.Global.SignUp, "SignUp", "AccountManager")
                         </li>
@@ -80,24 +89,36 @@
                             <li>
                                 @Html.ActionLink(Resources.Global.Login, "Login", "AccountManager")
                             </li>
-
-
                         }
                         else
                         {
                             <li>
                                 @Html.ActionLink(Resources.Global.Logout, "LogOut", "AccountManager")
                             </li>
-                            <li>
-                                <a href="https://localhost:44355/Users/Edit" class="btn btn-default btn-xs">@User.Identity.Name </a>
-
-                            </li>
-                            if (!string.IsNullOrEmpty(Session["UserProfile"] as string))
+                            string cookieName = User.Identity.Name;
+                            if (Request.Cookies[cookieName] != null)
                             {
                                 <li>
-                                      <img src="@HttpContext.Current.Session["UserProfile"].ToString()" alt="aaaaa" width="20" height="20" />
+                                    <div>
+                                        <a href="https://localhost:44355/Users/Edit" style="margin:auto" >
+                                            <img src="@Url.Content(Request.Cookies[cookieName].Value.ToString())" alt="@User.Identity.Name" title="  @User.Identity.Name  " width="50" height="50" style="border-radius:50px" />
+                                        </a>
+                                    </div>
                                 </li>
                             }
+                            else
+                            {
+                                <li>
+                                    <div>
+                                        <a href="https://localhost:44355/Users/Edit" style="padding-right:30%">
+                                            <img src="~/UserProfileImage/Profile.png" alt="my img" width="30" height="30" style="border-radius:20px" />
+                                        </a>
+                                        <span style=" color:cornsilk; padding-top:3px;padding-bottom:0px">@User.Identity.Name</span>
+                                    </div>
+                                </li>
+                            }
+
+
 
                         }
 
@@ -119,26 +140,40 @@
                             <li>
                                 @Html.ActionLink(Resources.Global.Login, "Login", "AccountManager")
                             </li>
-
                         }
                         else
                         {
                             <li>
                                 @Html.ActionLink(Resources.Global.Logout, "LogOut", "AccountManager")
                             </li>
-                            <li>
-                                <a href="https://localhost:44355/Users/Edit" class="btn btn-default">@User.Identity.Name </a>
-
-                            </li>
-                            
-                            if (!string.IsNullOrEmpty(Session["UserProfile"] as string))
-                            { 
-                                var path= Session["UserProfile"].ToString();
+                            string cookieName = User.Identity.Name;
+                            if (Request.Cookies[cookieName] != null)
+                            {
                                 <li>
-                                    <img src=path alt="aaaaa" width="35" height="35" />
+                                    <div>
+                                        <a href="https://localhost:44355/Users/Edit" style="margin:auto">
+                                            <img src="@Url.Content(Request.Cookies[cookieName].Value.ToString())" alt="@User.Identity.Name" title="  @User.Identity.Name  " width="50" height="50" style="border-radius:50px" />
+                                        </a>
+                                    </div>
                                 </li>
                             }
+                            else
+                            {
+                                <li>
+                                    <div>
+                                        <a href="https://localhost:44355/Users/Edit" style="padding-right:30%">
+                                            <img src="~/UserProfileImage/Profile.png" alt="my img" width="30" height="30" style="border-radius:20px" />
+                                        </a>
+                                        <span style=" color:cornsilk; padding-top:3px;padding-bottom:0px">@User.Identity.Name</span>
+                                    </div>
+                                </li>
+                            }
+
+
+
                         }
+
+
 
 
 

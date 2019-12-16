@@ -123,6 +123,9 @@
   <data name="AddUniversity-btn" xml:space="preserve">
     <value>افزودن دانشگاه </value>
   </data>
+  <data name="AddUniversity-msg" xml:space="preserve">
+    <value>اگر دانشگاه شما در لیست وجود ندارد آن را اضافه کنید</value>
+  </data>
   <data name="AdminInfo" xml:space="preserve">
     <value>ادمین</value>
   </data>

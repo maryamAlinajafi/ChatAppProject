@@ -70,4 +70,27 @@ input[type="file"] {
 
 
 
-/*Display Image*/
+/*Put in center of div*/
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    align-items: center;
+}
+.center {
+    margin: auto;
+    width: 100%;
+    padding-right: 35%;
+    padding-left: 35%;
+}
+.center-text {
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+.center-button {
+    margin: auto;
+    width: 100%;
+    padding-right:24%;
+}
+

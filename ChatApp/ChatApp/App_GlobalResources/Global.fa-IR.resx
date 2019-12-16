@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>درباره ما</value>
   </data>
+  <data name="ClassesList" xml:space="preserve">
+    <value>لیست کلاس ها</value>
+  </data>
   <data name="firstname-lbl" xml:space="preserve">
     <value>نام:</value>
   </data>
@@ -135,7 +138,19 @@
   <data name="Logout" xml:space="preserve">
     <value>خروج</value>
   </data>
+  <data name="ProfessorStart" xml:space="preserve">
+    <value>ورود اساتید</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>وضعیت کاربر</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>ثبت نام</value>
+  </data>
+  <data name="StudentStart" xml:space="preserve">
+    <value>ورود دانشجویان</value>
+  </data>
+  <data name="UsersList" xml:space="preserve">
+    <value>لیست کاربران</value>
   </data>
 </root>
