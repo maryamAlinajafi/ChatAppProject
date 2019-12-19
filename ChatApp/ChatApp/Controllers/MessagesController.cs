@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using FormsAuthenticationExtensions;
 using Model;
 
 namespace ChatApp.Controllers
@@ -120,6 +122,44 @@ namespace ChatApp.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+
+        //******************************************************************************
+        //*****************************************************************************
+        //*****************************************************************************
+
+        public bool addMessage(string msgText,string classId)
+        {
+            //detect UserID
+            var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+            string userid = ticketData["UserID"];
+            //Create Msg:
+            var message = new Message();
+            message.DateTime = DateTime.Now;
+            message.ClassId =int.Parse(classId);
+            message.UserId = Guid.Parse(userid);
+            message.Text = msgText;
+            try
+            {
+                db.Messages.Add(message);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+
+
+            
+            
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

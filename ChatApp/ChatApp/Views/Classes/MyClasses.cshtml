@@ -65,7 +65,7 @@
 
             <td>
 
-                 @Html.ActionLink(Resources.ClassRF.OpenClass, "OpenClass", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
+                 @Html.ActionLink(Resources.ClassRF.OpenClass, "MyClass", new { classID = item.ID }, new { @class = "btn btn-default btn-success btn-sm", id = "{btnOpenClass}" })
                  @*@Html.ActionLink("Left Class ", "LeftClass", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })*@
                 <input type="button" class="btnLeavingClass btn btn-danger btn-sm " value="@Resources.ClassRF.LeaveClass_btn" />
 

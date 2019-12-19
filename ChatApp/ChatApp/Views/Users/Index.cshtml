@@ -4,69 +4,78 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/Content/ProfileImage.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/lightbox.min.css" />
+        <script type="text/javascript" src="~/Scripts/lightbox-plus-jquery.min.js"></script>
 
-<table class="table">
-    <tr>
-        <th>
+    </head>
+    <body>
+        <table class="table">
+            <tr>
+                <th>
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th></th>
-    </tr>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-
-        <td>
-            @if (String.IsNullOrEmpty(item.ProfileImage))
+            @foreach (var item in Model)
             {
-                <img src="~/UserProfileImage/Profile.png" id="image" width="30" height="30" style="border-radius:20px" />
-            }
-            else
-            {
-                <div class="picture">
-                    <a href="@Url.Content(item.ProfileImage)" data-lightbox="mygallery"><img src="@Url.Content(item.ProfileImage)" id="image" width="30" height="30" style="border-radius:20px" /></a>
-                </div>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.RoleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lastname)
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID },new { @class = "btn btn-default btn-primary btn-sm" }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID },new { @class = "btn btn-default btn-success btn-sm" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID },new { @class = "btn btn-default btn-danger btn-sm" })
-        </td>
-    </tr>
-}
+                <tr>
 
-</table>
+                    <td>
+                        @if (String.IsNullOrEmpty(item.ProfileImage))
+                        {
+                            <img src="~/UserProfileImage/Profile.png" id="image" width="30" height="30" style="border-radius:20px" />
+                        }
+                        else
+                        {
+                            <div class="picture">
+                                <a href="@Url.Content(item.ProfileImage)" data-lightbox="mygallery"><img src="@Url.Content(item.ProfileImage)" id="image" width="30" height="30" style="border-radius:20px" /></a>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role.RoleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lastname)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-primary btn-sm" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-success btn-sm" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-default btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        </body>
+</html>

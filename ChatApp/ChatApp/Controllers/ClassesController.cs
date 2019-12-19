@@ -171,12 +171,7 @@ namespace ChatApp.Controllers
 
             return View(UserClassList);
         }
-        public ActionResult OpenClass(int id)
-        {
-            return View();
-
-        }
-
+       
        public JsonResult LeftClass()
         {
             int id = Int32.Parse(Request["id"]);
@@ -249,6 +244,8 @@ namespace ChatApp.Controllers
                 try
                 {
                     db.SaveChanges();
+                    //var c = FindClassByTitleAndAdmin(@class.Title, @class.AdminInfo);
+                    ViewBag.ClassId = @class.ID;
                     return View("ClassSuccesfullyCreated");
 
                 }
@@ -305,6 +302,24 @@ namespace ChatApp.Controllers
 
         }
 
+        public Class FindClassByTitleAndAdmin(string title,string adminUsername)
+        {
+            if (title==null || adminUsername==null)
+                return null;
+
+            Class c = db.Classes.Where(x=>
+                                            x.Title==title &&
+                                            x.AdminInfo==adminUsername)
+                                            .FirstOrDefault();
+
+            if (c == null)
+                return null;
+
+
+            return c;
+
+        }
+
 
         [HttpPost]
         public PartialViewResult FindClassByAccessCode(string accessCode)
@@ -352,6 +367,7 @@ namespace ChatApp.Controllers
                 //Creating some viewbag to show User some Info about new class that he has joind recently:
                 c.MemberCount = c.Users.Count();
                 ViewBag.nth = "" + (c.MemberCount-1) ;
+                ViewBag.ClassId = c.ID;
                 return View("UserSuccesfullyJoined");
             }
             catch (Exception)
@@ -359,15 +375,15 @@ namespace ChatApp.Controllers
                 return Content("Error from controller!");
             }
 
-
-
-
-
-
-
-            
+          
         }
 
+        public ActionResult MyClass(int classID)
+        {
+            ViewBag.classId = classID;
+
+            return View();
+        }
 
 
 

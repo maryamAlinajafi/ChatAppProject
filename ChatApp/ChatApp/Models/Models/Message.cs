@@ -23,7 +23,7 @@ namespace Model
         //Relation:
         //To tbl:User
         public virtual User User{ get; set; }
-        public virtual string  UserId { get; set; }
+        public virtual Guid  UserId { get; set; }
 
 
         //To tbl:Class

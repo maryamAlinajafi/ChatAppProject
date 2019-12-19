@@ -42,5 +42,8 @@ namespace ChatApp.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+       
     }
+
 }

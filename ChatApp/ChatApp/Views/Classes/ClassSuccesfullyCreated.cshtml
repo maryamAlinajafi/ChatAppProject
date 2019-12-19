@@ -4,26 +4,29 @@
     <div style="align-content:center">
 
         <h2 class="success">
-           @Resources.ClassRF.ClassSuccessfulyCreated
+            @Resources.ClassRF.ClassSuccessfulyCreated
         </h2>
 
 
     </div>
-    
+    @{
+        int ClassIdretrive =@ViewBag.ClassId;
+    }
     <hr />
     <hr />
 
     <div class="row">
-        <spa class="col-md-5">
-            <p><a class="btn btn-success col-md-5 te" href="#">@Resources.ClassRF.OpenClass</a></p>
-        </spa>
+        <div class="col-md-5">
+            @Html.ActionLink(@Resources.ClassRF.OpenClass, "MyClass", new { classID = ClassIdretrive }, new { @class = "btn btn-success col-md-5" })
+
+        </div>
 
         <div class="col-md-5" style="align-items:center">
             <p><a class="btn btn-success col-md-5" href="https://localhost:44355/Classes/MyClasses">@Resources.ClassRF.SeeAllClass</a></p>
         </div>
 
     </div>
-   
+
 
 
 </div>
