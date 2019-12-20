@@ -440,3 +440,16 @@ C:\Users\ASUS\Desktop\Copy Of ChatAppp7\Clone of second Commit\ChatAppProject\Ch
 C:\Users\ASUS\Desktop\Copy Of ChatAppp7\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.dll
 C:\Users\ASUS\Desktop\Copy Of ChatAppp7\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.pdb
 C:\Users\ASUS\Desktop\Copy Of ChatAppp7\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\obj\Debug\ChatApp.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.Security.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Owin.dll
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.xml
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\ASUS\Desktop\Clone of second Commit\ChatAppProject\ChatApp\ChatApp\bin\Microsoft.Owin.Security.xml

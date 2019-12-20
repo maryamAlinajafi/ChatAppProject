@@ -1,0 +1,59 @@
+﻿body {
+    padding: 15px;
+    background-color: aliceblue;
+}
+
+.textmodmenu {
+    font-size: 0;
+}
+
+.texteditor {
+    height: 250px;
+    width: 100%;
+    border: 1px solid #666;
+    overflow-y: auto;
+    margin: 10px 0;
+    border-radius: 3px;
+    background-color: #f3f3f3;
+    transition: background-color .5s;
+    padding: 10px;
+}
+
+    .texteditor:focus {
+        background-color: #fff;
+    }
+
+.textmodmenu button {
+    background-color: #eee;
+    border: 0;
+    border: 1px solid #bbb;
+}
+
+.textmodsub {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.textmodmenu button:hover {
+    box-shadow: 0 0 15px #666 inset;
+}
+
+.article {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin: 10px 0;
+    padding: 15px;
+}
+
+    .article img {
+        max-width: 100%;
+    }
+
+/*override bootstrap blockquote style*/
+blockquote {
+    font-size: inherit;
+}
+
+.dropdown-menu.dropdown-selector {
+    padding-left: 15px;
+}

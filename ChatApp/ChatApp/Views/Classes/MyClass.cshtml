@@ -1,96 +1,235 @@
-﻿
-@{
-    ViewBag.Title = "Chat";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<h2>Chat</h2>
-<div class="container">
-    <input type="text" id="name" class="form-control col-md-6"/>
-    <input type="text" id="message" class="form-control col-md-6"/>
-    <input type="button" id="sendmessage" value="Send" class="btn btn-success"/>
-    
-    <ul id="discussion">
-    </ul>
-    <div id="msgShow" style="border:double;background-color:darkgray;width:500px;height:500px;" >
+﻿<html>
+<head>
 
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+       
+    }
+  
+ 
+</head>
+<body>
+
+
+    <br />
+    <br />
+    <br />
+   
+    <div class="navbar navbar-inverse" style="background-color:lightblue;border-top-right-radius:20px;border:none;">
+        <nav>
+            <div class="fixLeft">
+                <ul class="navbar-btn nav navbar-nav">
+                    <li>
+                        <input type="button" id="ExitClass" value="Exit" class="btn btn-danger btn-group-sm"style="padding:20px;"/>
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="fixRight">
+                <ul class="navbar-btn nav navbar-nav">
+                    <li>
+                        <span style="font-size:x-large;color:darkblue;padding-right:50px;">@ViewBag.classTitle</span>
+                        <div style="padding-right:0px;font-size:smaller;">23 online</div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </div>           
+    
+    <div class="container" style="width:100%;">
+       
+
+        <div id="msgShow">
+            <ul>
+                <li id="li-msgShow">
+                    <div class="row">
+                        <a href="#"><img src="~/UserProfileImage/Profile.png" width="40" height="40" style="border-radius:30px" class="col-md-1" /></a>
+                        <div id="div-msgShow" class="col-md-11">
+                            <p id="p-username">
+                                MARYAM
+                            </p>
+                            <p id="p-text">
+                                text
+                            </p>
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div style="position: relative;width:100%;">
+
+
+            <div style="width:90%; height: auto;margin: 0 auto;padding: 50px;position: relative;">
+                <div class="textmodmenu">
+                    <div class="textmodsub btn-group">
+                        <button class="textmod btn" id="bold"><i class="fa fa-bold"></i></button>
+                        <button class="textmod btn" id="italic"><i class="fa fa-italic"></i></button>
+                        <button class="textmod btn" id="underline"><i class="fa fa-underline"></i></button>
+                    </div>
+
+                    <div class="textmodsub btn-group">
+                        <button class="textmod btn" id="insertUnorderedList"><i class="fa fa-list"></i></button>
+                        <button class="textmod btn" id="insertOrderedList"><i class="fa fa-list-ol"></i></button>
+                    </div>
+                    <div class="textmodsub btn-group">
+                        <button class="textmod btn" id="justifyLeft"><i class="fa fa-align-left"></i></button>
+                        <button class="textmod btn" id="justifyCenter"><i class="fa fa-align-center"></i></button>
+                        <button class="textmod btn" id="justifyRight"><i class="fa fa-align-right"></i></button>
+                        <button class="textmod btn" id="justifyFull"><i class="fa fa-align-justify"></i></button>
+                    </div>
+
+                    <div class="textmodsub btn-group">
+                        <button class="textmodlink btn" id="createLink"><i class="fa fa-link"></i></button>
+                        <button class="textmodlink btn" id="insertImage"><i class="fa fa-image"></i></button>
+                    </div>
+
+                    <div class="textmodsub btn-group">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Font<span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-selector" id="fontName">
+                                <li>Arail</li>
+                                <li>Helvetica</li>
+                                <li>Calibri</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="texteditor" style="width:100%;height:110px;" id="message" contenteditable>
+
+                </div>
+                <div>
+
+                    <div class="textmodsub bn-group">
+                        <button class="textmod btn btn-success " id="sendmessage">  Send  </button>
+                        <button class="textmod btn btn-primary" id="clear">clear</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
-@section scripts {
-    <!--Script references. -->
-    <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
-    <!--Reference the SignalR library. -->
-    @*   <script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
-    @*<script src="~/Scripts/jquery.signalR-2.1.0.min.js"></script>*@
-    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
-    <!--Reference the autogenerated SignalR hub script. -->
-    <script src="~/signalr/hubs"></script>
-    <!--SignalR script to update the chat page and send messages.-->
-    <script>
+
+
+
+
+
+
+
+
+
+
+    @section scripts {
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+        <link href="@Url.Content("~/Content/MyEditor.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/MessagBoxes.css")" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="~/Scripts/lightbox-plus-jquery.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/MyEditor.js"></script>
+        <script>
 
         $(document).ready(function () {
+
                             console.log('hi')
              var chat = $.connection.chatHub;
-           
-          
+
+
             // Set initial focus to message input box.
             $('#message').focus();
 
 
             // Create a function that the hub can call back to display messages.
-           chat.client.addNewMessageToPage = function (name, message) {
+           chat.client.addNewMessageToPage = function (profileImage, message) {
                 // Add the message to the page.
-                let msgString =
-                   '<br/><b>' + name + ' : </b>' + message
+              let msgString =
+               ' <li id=\"li-msgShow\"><div class=\"row\"><a href=\"#\"><img src=\"' + profileImage + '\" width=\"40\" height=\"40\" style=\"border-radius:40px\"class="col-md-1\" /></a><div id=\"div-msgShow\" class=\"col-md-11\"><p id=\"p-username\">' + "@User.Identity.Name" + '</p><p id=\"p-text\">' + message + '</p></div></div></li>'
+
+
                $('#msgShow').append(msgString);
             };
 
-            // Start the connection.
+
+           // Start the connection.
           $.connection.hub.start()
             .done(function () {
 
                 console.log($.connection.hub.id)
+                //User join the group:
+                chat.server.joinGroup("@ViewBag.classId");
+
 
                 $('#sendmessage').click(function () {
 
-                    let name = "@HttpContext.Current.User.Identity.Name"
-                    let message = $('#message').val()
-                       
+                   // let name = "@HttpContext.Current.User.Identity.Name"
+                    let profileImage="@ViewBag.profileImage"
+                    let message = $('#message').html()
+                    $('#message').html("")
+
                     //save message to DB
-                $.ajax({  
+                $.ajax({
                     type: "GET",
                     url: "/Messages/addMessage?msgText=" + message + "&classId=" +"@ViewBag.classId",
-                    data: JSON.stringify(message),  
+                    data: JSON.stringify(message),
                     //dataType: "json"  ,
-                    contentType: 'application/json; charset=utf-8',  
+                    contentType: 'application/json; charset=utf-8',
                     error: function () {
                         alert("System is Busy! Try Later");
-                       
+
                     },
                     success: function (response) {
                         if (response) {
                             // Call the Send method on the hub.
-                            chat.server.send(name, message);
+                            chat.server.send("@ViewBag.classId",profileImage, message);
+
                             // Clear text box and reset focus for next comment.
                             $('#message').val('').focus();
                         }
                         else
                             alert("Not Send!Try again")
                     }
-                });  
-
-                    
                 });
-               
+
+
+                });
+
+                $("#ExitClass").click(function () {
+
+                    alert("leaving group?");
+                    chat.server.leaveGroup("@ViewBag.classId")
+                    window.location.href = "https://localhost:44355/Classes/MyClasses";
+
+                });
+                $("#clear").click(function () {
+
+                     $('#message').html("")
+
+                });
+
+
             });
 
         })
 
-         
 
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
-    </script>
-}
+        </script>
+
+
+
+
+
+
+    }
+
+</body>
+</html>

@@ -340,7 +340,7 @@ namespace ChatApp.Controllers
 
         }
 
-        [Authorize(Roles="Student")]
+        [Authorize(Roles="Student,Admin")]
         public ActionResult JoinClass(int id)
         {
 
@@ -381,6 +381,12 @@ namespace ChatApp.Controllers
         public ActionResult MyClass(int classID)
         {
             ViewBag.classId = classID;
+
+            var ticketData = ((FormsIdentity)HttpContext.User.Identity).Ticket.GetStructuredUserData();
+            string userid = ticketData["UserID"];
+            User u = FindUserById(Guid.Parse(userid));
+            ViewBag.profileImage = u.ProfileImage.Remove(0, 1);
+            ViewBag.classTitle = db.Classes.Find(classID).Title;
 
             return View();
         }

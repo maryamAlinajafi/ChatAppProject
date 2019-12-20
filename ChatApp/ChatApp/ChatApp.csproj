@@ -260,7 +260,9 @@
     <Content Include="Content\Error404.css" />
     <Content Include="Content\lightbox.min.css" />
     <Content Include="Content\LoadingPic\ajax-loader %281%29.gif" />
+    <Content Include="Content\MessagBoxes.css" />
     <Content Include="Content\myCss.css" />
+    <Content Include="Content\MyEditor.css" />
     <Content Include="Content\ProfileImage.css" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
@@ -299,6 +301,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MyEditor.js" />
     <Content Include="UserProfileImage\Profile.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,0 +1,35 @@
+﻿#msgShow {
+    border: double;
+    background-color: azure;
+    width: 1100px;
+    height: 700px;
+    text-align: unset;
+    overflow: scroll;
+    border-color: blue;
+}
+
+#li-msgShow {
+    margin: 6px 8px 0 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    list-style-type: none;
+}
+#div-msgShow {
+    margin: 20px 50px 0 0;
+    border-radius: 25px;
+    background: #E9967A;
+    width: 500px;
+    height: auto;
+    text-align: unset;
+    padding: 10px;
+}
+#p-username {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top:10px;
+    color: crimson;
+}
+#p-text {
+    padding-left: 15px;
+    padding-right: 15px;
+}

@@ -15,6 +15,7 @@ namespace ChatApp
         protected void Application_Start()
         {
             //GlobalFilters.Filters.Add(new AuthorizeAttribute());
+           
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
