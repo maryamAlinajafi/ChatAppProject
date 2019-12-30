@@ -7,8 +7,8 @@ namespace ChatApp.Models.Enums
 {
     public enum SemmesterEnum
     {
-       مهر97=971,
-       بهمن97=972,
+        مهر97=971,
+        بهمن97=972,
         مهر98 = 981,
         بهمن98 = 982,
         مهر99 = 991,

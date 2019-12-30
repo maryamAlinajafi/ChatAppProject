@@ -69,7 +69,7 @@ namespace ChatApp.Controllers
                     {
                         string cookieTitle = u.Username;
                         Response.Cookies[cookieTitle].Value = u.ProfileImage;
-
+                   
                     }
 
 

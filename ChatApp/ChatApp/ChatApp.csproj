@@ -199,6 +199,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\CommonViewModels\MsgDisplay.cs" />
     <Compile Include="SignalR\ChatHub.cs" />
     <Compile Include="Controllers\AccountManagerController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />

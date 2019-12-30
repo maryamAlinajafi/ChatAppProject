@@ -14,15 +14,15 @@
     <br />
     <br />
     <br />
-   
-    <div class="navbar navbar-inverse" style="background-color:lightblue;border-top-right-radius:20px;border:none;">
+
+    <div class="navbar navbar-inverse" style="background-color:lightblue;border-top-right-radius:20px;border-top-left-radius:20px;border:none;">
         <nav>
             <div class="fixLeft">
                 <ul class="navbar-btn nav navbar-nav">
                     <li>
-                        <input type="button" id="ExitClass" value="Exit" class="btn btn-danger btn-group-sm"style="padding:20px;"/>
+                        <input type="button" id="ExitClass" value="Exit" class="btn btn-danger btn-group-sm" style="padding:20px;" />
                     </li>
-                   
+
                 </ul>
             </div>
             <div class="fixRight">
@@ -35,29 +35,16 @@
             </div>
 
         </nav>
-    </div>           
-    
+    </div>
+   
     <div class="container" style="width:100%;">
-       
 
+
+        <div style="text-align:center;">  <span align="center" id="LoadMore" class="dot" style="font-size:larger">&#8634;</span> </div>
         <div id="msgShow">
             <ul>
-                <li id="li-msgShow">
-                    <div class="row">
-                        <a href="#"><img src="~/UserProfileImage/Profile.png" width="40" height="40" style="border-radius:30px" class="col-md-1" /></a>
-                        <div id="div-msgShow" class="col-md-11">
-                            <p id="p-username">
-                                MARYAM
-                            </p>
-                            <p id="p-text">
-                                text
-                            </p>
-
-                        </div>
-                    </div>
-
-                </li>
             </ul>
+
         </div>
 
         <div style="position: relative;width:100%;">
@@ -118,40 +105,58 @@
 
 
 
-
-
-
-
-
-
     @section scripts {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+        <script type="text/javascript" src="~/Scripts/lightbox-plus-jquery.min.js"></script>
         <link href="@Url.Content("~/Content/MyEditor.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/MessagBoxes.css")" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="~/Scripts/lightbox-plus-jquery.min.js"></script>
         <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
         <script src="~/signalr/hubs"></script>
         <script src="~/Scripts/MyEditor.js"></script>
+
+
         <script>
 
+            var pIndex = 1;
         $(document).ready(function () {
 
-                            console.log('hi')
-             var chat = $.connection.chatHub;
+            console.log('hi')
+            var chat = $.connection.chatHub;
+
+
+              //Load last Messsages from  database:
+            LoadHistory();
 
 
             // Set initial focus to message input box.
             $('#message').focus();
 
-
             // Create a function that the hub can call back to display messages.
            chat.client.addNewMessageToPage = function (profileImage, message) {
                 // Add the message to the page.
               let msgString =
-               ' <li id=\"li-msgShow\"><div class=\"row\"><a href=\"#\"><img src=\"' + profileImage + '\" width=\"40\" height=\"40\" style=\"border-radius:40px\"class="col-md-1\" /></a><div id=\"div-msgShow\" class=\"col-md-11\"><p id=\"p-username\">' + "@User.Identity.Name" + '</p><p id=\"p-text\">' + message + '</p></div></div></li>'
+               ' <li class=\"li-msgShow\"><div class=\"row\"><a href=\"#\"><img src=\"' + profileImage + '\" width=\"40\" height=\"40\" style=\"border-radius:40px\"class="col-md-1\" /></a><div class=\"div-msgShow col-md-11\"><span class=\"DeleteCurrentMsg\"> &#9587; </span><p class=\"p-username\">' + "@User.Identity.Name" + '</p><p class=\"p-text\">' + message + '</p> <p class=\"p-dateTime\" >'+"@DateTime.Now.ToString("HH:MM")"+'</p></div></div></li>'
 
 
                $('#msgShow').append(msgString);
+               $("#msgShow").scrollTop($("#msgShow")[0].scrollHeight);
+
+
+
+               $("span.DeleteCurrentMsg").click(function () {
+                   //
+                   $(this).closest('li').attr("id", "deletNow");
+                 
+                  var UsernameSender = "@User.Identity.Name"
+                  var classID = "@ViewBag.classId"
+                  var MsgText = $(this).siblings('.p-text').text();
+                  DeleteMsgWithoutId(UsernameSender,classID,MsgText);
+
+
+               });
+
+              
+                   
             };
 
 
@@ -167,11 +172,11 @@
                 $('#sendmessage').click(function () {
 
                    // let name = "@HttpContext.Current.User.Identity.Name"
-                    let profileImage="@ViewBag.profileImage"
-                    let message = $('#message').html()
+                    let profileImage = "@ViewBag.profileImage"
+                    let message = $('#message').text()
                     $('#message').html("")
 
-                    //save message to DB
+                 //save message to DB
                 $.ajax({
                     type: "GET",
                     url: "/Messages/addMessage?msgText=" + message + "&classId=" +"@ViewBag.classId",
@@ -198,30 +203,211 @@
 
                 });
 
-                $("#ExitClass").click(function () {
 
-                    alert("leaving group?");
-                    chat.server.leaveGroup("@ViewBag.classId")
-                    window.location.href = "https://localhost:44355/Classes/MyClasses";
+
+
+                $("#ExitClass").click(function () {
+                     swal({
+                    title: "? leaving group",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            chat.server.leaveGroup("@ViewBag.classId")
+                           window.location.href = "https://localhost:44355/Classes/MyClasses";
+                        }
+                    })
+
+                  
 
                 });
+
                 $("#clear").click(function () {
 
                      $('#message').html("")
 
                 });
+                   $("#LoadMore").click(function () {
+
+                       LoadHistory();
+
+                   });
+
+                $(".delete").click(function () {
+                   var id = $(this).closest('li').attr('id');
+
+                   DeleteMsgById(id);
+
+                });
+
+                 
+
+               
+                  
+               
+
+
 
 
             });
 
         })
 
-
+             
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
+            }
+
+
+         function LoadHistory() {
+                  $.ajax({
+                 type: "GET",
+                 url: "/Messages/LoadMsgs",
+                data: { classId: "@ViewBag.classId",pageIndex: pIndex },
+               contentType: "application/json;charset=utf-8",
+               dataType: "json",
+                      success: function (result) {
+                          if (result.MsgList.length === 0) {
+                              let msgString =
+                                  '<li><div style=\"background-color:lightblue;text-align:center;\">  *** This Class Was Created in 10/10/1385  *** </div></li>'
+                              $('#msgShow').prepend(msgString);
+                          }
+                          else {
+                              $.each(result.MsgList, function (id, msg) {
+                                  if (msg.User_Username === "@User.Identity.Name") {
+                                      let msgString =
+                                          ' <li id=\"' + msg.MsgID + '\" class=\"li-msgShow\"><div class=\"row\"><a href=\"#\"><img src=\"' + msg.User_Profile + '\" width=\"40\" height=\"40\" style=\"border-radius:40px\"class="col-md-1\" /></a><div class=\"div-msgShow col-md-11\"><span class=\"delete\"> &#9587; </span><p class=\"p-username\">' + msg.User_Username + '</p><p class=\"p-text\">' + msg.Text + '</p> <p class=\"p-dateTime\" >' + msg.Time + '</p></div></div></li>'
+                                      $('#msgShow').prepend(msgString);
+                                  }
+                                  else {
+                                      let msgString =
+                                          ' <li id=\"' + msg.MsgID + '\" class=\"li-msgShow\"><div class=\"row\"><a href=\"#\"><img src=\"' + msg.User_Profile + '\" width=\"40\" height=\"40\" style=\"border-radius:40px\"class="col-md-1\" /></a><div class=\"div-msgShow col-md-11\"><p class=\"p-username\">' + msg.User_Username + '</p><p class=\"p-text\">' + msg.Text + '</p> <p class=\"p-dateTime\" >' + msg.Time + '</p></div></div></li>'
+
+                                  $('#msgShow').prepend(msgString);
+                                  }
+
+
+                                  });
+                          }
+
+
+                      //PIndex must ++
+                      //next time next 10 msgs will display...
+                       pIndex= pIndex + 1;
+
+
+
+
+
+                   },
+                   error: function (response) {
+                  debugger;
+                    alert('eror');
         }
+    });
+            }
+
+            function DeleteMsgById(id) {
+                //find <li> of Message:
+
+                     //confirm?
+
+                swal({
+                    title: "?  Are you sure TO Delete This Message",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+
+                            $.ajax({
+                                type: "GET",
+                                url: '/Messages/Delete?id=' + id,
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (result) {
+                                    if (result) {
+                                        swal(" Your Message  has been deleted!", {
+                                             icon: "success",
+                                          });
+
+                                         
+                                      //delete from clientSide (without refresh !) :
+                                      $('#msgShow').find('#' + id).remove();
+                                    }
+                                    else {
+                                            
+                                            alert("some Error Ocured!.....plaase try again!")
+                                    }
+                               
+
+                                },
+                                error: function (xhr, status, error) {
+                                   
+                                    swal("some Error ocurs !", "Please try later....", "info");
+                                }
+                            });
+
+                        }
+                    })
+
+            }
+
+             function DeleteMsgWithoutId(UsernameSender,classID,MsgText) {
+                //find <li> of Message:
+
+                 //confirm?
+
+                swal({
+                    title: "?  Are you sure TO Delete This Message",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+
+                            $.ajax({
+                                type: "GET",
+                                url: '/Messages/DeleteByUserIdAndText?Username=' + UsernameSender+"&Text="+MsgText+"&ClassID="+classID,
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (result) {
+
+                                    if (result) {
+                                        swal(" Your Message  has been deleted!", {
+                                             icon: "success",
+                                          });
+                                  
+                                     //set temprary-ID in order to delete from UI:
+                                       $('#msgShow').find('#deletNow').remove();
+                                    }
+                                    else {
+                                            $('#deletNow').removeAttr("id");
+                                            alert("some Error Ocured!.....plaase try again!")
+                                    }
+
+                                },
+                                error: function (xhr, status, error) {
+                                    $('#deletNow').removeAttr("id");
+                                    swal("some Error ocurs !", "Please try later....", "info");
+                                }
+                            });
+
+                        }
+                    })
+
+            }
+
+        
         </script>
 
 

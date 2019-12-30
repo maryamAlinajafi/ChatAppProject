@@ -8,13 +8,13 @@
     border-color: blue;
 }
 
-#li-msgShow {
+.li-msgShow {
     margin: 6px 8px 0 0;
     padding-left: 50px;
     padding-right: 50px;
     list-style-type: none;
 }
-#div-msgShow {
+.div-msgShow {
     margin: 20px 50px 0 0;
     border-radius: 25px;
     background: #E9967A;
@@ -23,13 +23,38 @@
     text-align: unset;
     padding: 10px;
 }
-#p-username {
+.p-username {
     padding-left: 20px;
     padding-right: 20px;
-    padding-top:10px;
+    padding-top: 10px;
     color: crimson;
+    height: auto;
 }
-#p-text {
+.p-text {
     padding-left: 15px;
     padding-right: 15px;
+    word-break: break-all;
+    height: auto;
+}
+.p-dateTime {
+    float: left;
+    padding-bottom: 0px;
+    font-size: 10px;
+    color: black;
+    height: auto;
+}
+
+
+.dot {
+    height: 40px;
+    width: 40px;
+    background-color: lightblue;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot:hover{
+    cursor: pointer;
+}
+.delete:hover {
+    cursor: pointer;
 }
